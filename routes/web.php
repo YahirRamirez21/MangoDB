@@ -6,3 +6,6 @@ Route::get('/', function () {
     return view('login');
 });
 
+Route::get('/cajaCreateHectareaEA', function () {
+    return view('cajaCreateHectareaEA');
+});
