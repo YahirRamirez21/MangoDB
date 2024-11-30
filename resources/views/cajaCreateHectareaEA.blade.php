@@ -7,32 +7,32 @@
     @vite('resources/css/styleCajaCreateHectareaEA.css')
 </head>
 <body>
-    <header>
-        <div class="menu-landmark">
-            <h1>MangoDB</h1>
-            <a href=" " class="logout">LogOut</a>
-        </div>
-    </header>
-
     <main>
         <section class="formulario">
             <h2>Etiqueta</h2>
             <form action=" " method="POST">
                 <div class="campo">
                     <label for="id">ID:</label>
-                    <input type="text" id="id" name="id" required>
+                    <input type="text" id="id" name="id" readonly required>
                 </div>
                 <div class="campo">
                     <label for="hectarea">Hectárea:</label>
-                    <input type="text" id="hectarea" name="hectarea" required>
+                    <input type="text" id="hectarea" name="hectarea" readonly required>
                 </div>
                 <div class="campo">
-                    <label for="calidad">Calidad:</label>
-                    <input type="text" id="calidad" name="calidad" required>
-                </div>
+                <label for="calidad">Calidad:</label>
+                    <select id="calidad" name="calidad" required>
+                        <option value="Calidad">Calidad</option>
+                        <option value="No Calidad">No Calidad</option>
+                    </select>
+               </div>
                 <div class="campo">
                     <label for="kilogramos">Kilogramos:</label>
                     <input type="number" id="kilogramos" name="kilogramos" required>
+                </div>
+                <div class="campo">
+                    <label for="fechaR">Fecha de recolección:</label>
+                    <input type="number" id="fechaR" name="fechaR" readonly required>
                 </div>
                 <button type="submit" class="boton">Imprimir</button>
             </form>
