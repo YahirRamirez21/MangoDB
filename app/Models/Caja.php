@@ -23,4 +23,9 @@ class Caja extends Model
     {
         return $this->hasMany(CajaVenta::class, 'id_caja');
     }
+
+    public static function obtenerPorId($id)
+    {
+        return self::find($id);
+    }
 }

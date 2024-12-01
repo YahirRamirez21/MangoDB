@@ -3,6 +3,7 @@
 use App\Http\Controllers\ControladorLogin;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ControladorEncargadoAlmacen;
 
 Route::get('/', [ControladorLogin::class, 'vistaLogin']);
 
@@ -36,3 +37,5 @@ Route::get('/informacionHectarea', function () {
 Route::get('/crearCajaMangos', function () {
     return view('cajaCreateHectareaEA');
 });
+
+Route::get('/caja', [ControladorEncargadoAlmacen::class, 'mostrarCaja']);
