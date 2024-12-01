@@ -5,38 +5,6 @@ body {
     background-color: #fdfbe3;
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #005500;
-    padding: 10px 20px;
-    color: white;
-    font-weight: bold;
-}
-
-.navbar .title {
-    font-size: 20px;
-}
-
-.navbar .logout {
-    width: 100px;
-    text-align: center;
-    padding: 5px 10px;
-    border: 3px solid white;
-    background-color: #005500;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.navbar .logout:hover {
-    background-color: white;
-    color: #005500;
-}
-
 .content {
     text-align: center;
     margin: 40px 20px;
@@ -48,89 +16,125 @@ body {
 }
 
 .search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
+    max-width: 400px; 
+    padding: 20px 30px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    background-color: white; 
+    margin: 30px auto; 
 }
 
 .search-box {
     display: flex;
-    align-items: center;
-    border: 3px solid #005500;
-    padding: 10px;
-    background-color: #fdfbe3;
+    flex-direction: column; 
+    gap: 15px; 
 }
 
 .search-box label {
-    margin-right: 10px;
-    font-size: 18px;
-    color: #005500;
+    font-size: 16px; 
+    color: #005500; 
     font-weight: bold;
 }
 
 .search-box input[type="text"] {
-    width: 200px;
-    padding: 5px;
-    font-size: 16px;
-    border: 2px solid #005500;
-    border-radius: 5px;
-    margin-right: 10px;
+    width: 100%; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
 }
 
 .search-box button {
-    padding: 5px 10px;
-    border: 3px solid #005500;
-    background-color: #005500;
-    color: white;
+    padding: 10px;
     font-size: 16px;
-    font-weight: bold;
+    border-radius: 5px; 
+    background-color: #4CAF50; 
+    color: white;
+    border: none; 
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease; 
 }
 
 .search-box button:hover {
+    background-color: #45a049; 
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px);
+}
+
+.formulario {
     background-color: white;
-    color: #005500;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
 }
 
-.form-container {
-    display: inline-block;
-    text-align: left;
-    padding: 20px;
-    border: 3px solid #005500;
-    background-color: #fdfbe3;
-    margin-top: 30px;
+.formulario h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #4CAF50;
+    text-align: center;
 }
 
-.form-container label {
-    font-size: 18px;
-    color: #005500;
-    font-weight: bold;
+.campo {
+    margin-bottom: 15px;
 }
 
-.form-container input[type="text"] {
-    width: 200px;
-    padding: 5px;
-    font-size: 16px;
-    border: 2px solid #005500;
-    border-radius: 5px;
-    margin: 10px 0;
+.campo label {
     display: block;
-}
-
-.form-container button {
-    padding: 5px 10px;
-    border: 3px solid #005500;
-    background-color: #005500;
-    color: white;
-    font-size: 16px;
+    margin-bottom: 5px;
     font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-.form-container button:hover {
+.campo input {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.campo input[readonly] {
+    background-color: #f0f0f0;
+    color: #888;
+    cursor: not-allowed;
+    border: 1px solid #ddd;
+}
+
+.campo select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
     background-color: white;
-    color: #005500;
+}
+
+.campo input:focus, select:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 4px rgba(76, 175, 80, 0.5);
+}
+
+.boton {
+    display: block;
+    margin: 0 auto;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 50%;
+}
+
+.boton:hover {
+    background-color: #45a049;
 }

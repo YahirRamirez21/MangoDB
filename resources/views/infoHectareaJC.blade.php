@@ -19,8 +19,8 @@
             <p>Informacion</p>
             </section>
             <section id="sectionBotonesHectarea">
-                <botton class="boton">Cambiar Estado Hectarea</botton>
-                <botton class="boton" onclick="window.location.href='{{ url('/crearCajaMangos') }}'">Crear Cajas</button>
+                <button class="boton">Cambiar Estado Hectarea</button>
+                <button class="boton" onclick="window.location.href='{{ url('/crearCajaMangos') }}'">Crear Cajas</button>
             </section>
         </section>
     </main>
