@@ -12,11 +12,3 @@ Route::middleware(['auth'])->get('/principal', function () {
     return view('principal'); 
 });
 
-
-Route::get('/cajaCreateHectareaEA', function () {
-    return view('cajaCreateHectareaEA');
-});
-
-Route::get('/estadoHectareaEA', function () {
-    return view('estadoHectareaEA');
-});
