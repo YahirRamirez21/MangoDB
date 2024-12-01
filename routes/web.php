@@ -11,3 +11,4 @@ Route::get('login', [ControladorLogin::class, 'vistaLogin'])->name('login');
 Route::middleware(['auth'])->get('/principal', function () {
     return view('principal'); 
 });
+
