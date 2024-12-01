@@ -14,18 +14,31 @@ class ControladorLogin extends Controller
 
     public function login(Request $request)
     {
+        // Validar entrada
         $request->validate([
             'nombre' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        if (Auth::attempt([
-            'nombre' => $request->nombre,
-            'password' => $request->password
-        ], $request->has('remember'))) {
-            return redirect()->intended('/principal');
+        // Intentar autenticación
+        if (Auth::attempt($request->only('nombre', 'password'), $request->filled('remember'))) {
+            $usuario = Auth::user();
+
+            // Redirigir según el rol del usuario
+            return match ($usuario->rol) {
+                'Jefe de Cuadrilla' => redirect('/jefe-cuadrilla'),
+                'Encargado de Almacén' => redirect('/encargado-almacen'),
+                default => $this->logoutInvalidoRol(),
+            };
         }
 
+        // Fallo de autenticación
         return back()->withErrors(['nombre' => 'Las credenciales no coinciden.']);
+    }
+
+    private function logoutInvalidoRol()
+    {
+        Auth::logout();
+        return redirect('/login')->withErrors(['rol' => 'Rol no válido.']);
     }
 }
