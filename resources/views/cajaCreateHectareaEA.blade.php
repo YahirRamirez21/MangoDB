@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MangoDB - CajaCreate</title>
-    @vite('resources/css/styleCajaCreateHectareaEA.css')
+    @vite(['resources/css/styleCajaCreateHectareaEA.css', 'resources/css/style-components/styleComponents.css'])
 </head>
 <body>
+    <x-menu/>
     <main>
         <section class="formulario">
             <h2>Etiqueta</h2>

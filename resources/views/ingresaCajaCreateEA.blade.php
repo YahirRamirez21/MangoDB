@@ -9,35 +9,60 @@
             window.location.href = '/label';
         }
     </script>
-    @vite('resources/css/styleIngresaCajaEA.css')
+    @vite(['resources/css/styleIngresaCajaEA.css', 'resources/css/style-components/styleComponents.css'])
 </head>
 <body>
-    <div class="navbar">
-        <div class="title">MangoDB</div>
-        <button class="logout" onclick="alert('Saliendo')">Log Out</button>
-    </div>
+    <x-menu/>
+
+    
     <div class="content">
         <h1>Introducir Cajas</h1>
         <div class="search-container">
             <div class="search-box">
                 <label for="box-id">ID:</label>
                 <input type="text" id="box-id" placeholder="Buscar caja">
-                <button onclick="showLabelScreen()">Buscar</button>
+                <button>Buscar</button>
             </div>
         </div>
     </div>
 
-    <div class="content">
-        <h1>Etiquetas</h1>
-        <div class="form-container">
-            <label for="id">Id:</label>
-            <input type="text" id="id">
-            <label for="kg">Kg:</label>
-            <input type="text" id="kg">
-            <label for="fecha">Fecha:</label>
-            <input type="text" id="fecha">
-            <button onclick="alert('Guardando etiqueta')">Guardar</button>
+    <main>
+        <div class="content">
+            <section class="formulario">
+                <h2>Etiqueta</h2>
+                <form action=" " method="POST">
+                    <div class="campo">
+                        <label for="id">ID:</label>
+                        <input type="text" id="id" name="id" readonly required>
+                    </div>
+                    <div class="campo">
+                        <label for="hectarea">Hectárea:</label>
+                        <input type="text" id="hectarea" name="hectarea" readonly required>
+                    </div>
+                    <div class="campo">
+                        <label for="calidad">Calidad:</label>
+                        <input type="text" id="calidad" name="calidad" readonly required>
+                </div>
+                    <div class="campo">
+                        <label for="kilogramos">Kilogramos:</label>
+                        <input type="number" id="kilogramos" name="kilogramos" readonly required>
+                    </div>
+                    <div class="campo">
+                        <label for="fechaR">Fecha de recolección:</label>
+                        <input type="text" id="fechaR" name="fechaR" readonly required>
+                    </div>
+                    <div class="campo">
+                        <label for="fechaA">Fecha de ingreso a almacén:</label>
+                        <input type="text" id="fechaA" name="fechaA" readonly required>
+                    </div>
+                    <div class="campo">
+                        <label for="posicion">Posición:</label>
+                        <input type="text" id="posicion" name="posicion" readonly required>
+                    </div>
+                    <button class="boton">Imprimir</button>
+                </form>
+            </section>
         </div>
-    </div>
+    </main>    
 </body>
 </html>
