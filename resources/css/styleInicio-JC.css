@@ -1,0 +1,26 @@
+body{
+    /*  border: 1px solid red;*/
+    margin: 0 auto;
+}
+
+#sectionBusqueda{
+    padding: 30px
+}
+
+#sectionListaHectareas{
+    /*border: 1px solid red;   */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 15px;
+}
+
+.itemHectarea{
+    border:1px solid rgb(0, 128, 32);
+    border-radius: 5%;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
