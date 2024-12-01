@@ -1,0 +1,136 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fdfbe3;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #005500;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.navbar .title {
+    font-size: 20px;
+}
+
+.navbar .logout {
+    width: 100px;
+    text-align: center;
+    padding: 5px 10px;
+    border: 3px solid white;
+    background-color: #005500;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar .logout:hover {
+    background-color: white;
+    color: #005500;
+}
+
+.content {
+    text-align: center;
+    margin: 40px 20px;
+}
+
+.content h1 {
+    color: #005500;
+    font-size: 24px;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    border: 3px solid #005500;
+    padding: 10px;
+    background-color: #fdfbe3;
+}
+
+.search-box label {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #005500;
+    font-weight: bold;
+}
+
+.search-box input[type="text"] {
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    border: 2px solid #005500;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-box button {
+    padding: 5px 10px;
+    border: 3px solid #005500;
+    background-color: #005500;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.search-box button:hover {
+    background-color: white;
+    color: #005500;
+}
+
+.form-container {
+    display: inline-block;
+    text-align: left;
+    padding: 20px;
+    border: 3px solid #005500;
+    background-color: #fdfbe3;
+    margin-top: 30px;
+}
+
+.form-container label {
+    font-size: 18px;
+    color: #005500;
+    font-weight: bold;
+}
+
+.form-container input[type="text"] {
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    border: 2px solid #005500;
+    border-radius: 5px;
+    margin: 10px 0;
+    display: block;
+}
+
+.form-container button {
+    padding: 5px 10px;
+    border: 3px solid #005500;
+    background-color: #005500;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.form-container button:hover {
+    background-color: white;
+    color: #005500;
+}
