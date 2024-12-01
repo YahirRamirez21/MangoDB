@@ -1,0 +1,55 @@
+#contenedor{
+    display:flex;
+    flex-wrap: wrap;
+    gap:30px;
+    padding: 30px;
+}
+
+#sectionInfoHectarea {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 60%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#sectionInfoHectarea h2 {
+    color: #3A5A40;
+    margin-bottom: 15px;
+}
+
+#sectionInfoHectarea p {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+#sectionBotonesHectarea {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 30%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+}
+
+.boton {
+    border: 1px solid red;
+    background-color: #3A5A40;
+    color: white;
+    padding: 30px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.boton:hover{
+    background-color: #588157;
+}
