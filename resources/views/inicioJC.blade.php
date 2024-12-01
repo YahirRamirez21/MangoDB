@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio Jefe Cuadrilla</title>
     <link rel="stylesheet" >
-    @vite(['resources/css/styleInicio-JC.css', 'resources/js/listaHectareas.js', 'resources/css/style-components/styleComponents.css'])
+    @vite(['resources/css/styleInicioJC.css', 'resources/js/listaHectareas.js', 'resources/css/style-components/styleComponents.css'])
 
 </head>
 <body>

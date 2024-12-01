@@ -6,10 +6,10 @@
     <title>Introducir Cajas</title>
     <script>
         function showLabelScreen() {
-            window.location.href = '/label'; 
+            window.location.href = '/label';
         }
     </script>
-    @vite('resources/css/styleIngresaCaja-EA.css')
+    @vite('resources/css/styleIngresaCajaEA.css')
 </head>
 <body>
     <div class="navbar">
