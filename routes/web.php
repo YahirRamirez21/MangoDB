@@ -4,6 +4,7 @@ use App\Http\Controllers\ControladorLogin;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ControladorEncargadoAlmacen;
+use App\Http\Controllers\ControladorJefeCuadrilla;
 
 Route::get('/', [ControladorLogin::class, 'vistaLogin']);
 
@@ -39,3 +40,9 @@ Route::get('/crearCajaMangos', function () {
 });
 
 Route::get('/caja', [ControladorEncargadoAlmacen::class, 'mostrarCaja']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/inicioHectarea', [ControladorJefeCuadrilla::class, 'index'])->name('hectareas.index');
+});
+
+Route::get('/informacionHectarea/{id}', [ControladorJefeCuadrilla::class, 'informacionHectarea'])->name('hectareas.info');

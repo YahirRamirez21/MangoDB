@@ -11,6 +11,11 @@ class Caja extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'hectarea_id',
+        'fecha_recoleccion',
+    ];
+
 
     public function hectarea()
     {
@@ -32,5 +37,5 @@ class Caja extends Model
         return self::with('posiciones')->find($id);
     }
 
-   
+    
 }

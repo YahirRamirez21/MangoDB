@@ -31,4 +31,6 @@ class Usuario extends Authenticatable
         return $this->hasMany(Venta::class, 'id_encargado_venta');
     }
 
+    
+
 }

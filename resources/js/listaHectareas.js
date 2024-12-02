@@ -13,7 +13,7 @@ const listaHectareas = document.getElementById("sectionListaHectareas")
 
 if (listaHectareas) {
     hectareas.forEach((hectarea) => {
-        const div = document.createElement("div")
+        const div = document.createElement("button")
         div.textContent = `${hectarea.nombre} - ${hectarea.location}`
         div.className = "itemHectarea"
         listaHectareas.appendChild(div)

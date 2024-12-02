@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Ludiflex</title>
+    <title>Login</title>
     @vite('resources/css/styleLogin.css')
 
 </head>
@@ -45,9 +45,12 @@
                     <label for="check">Recuérdame</label>
                 </section>
             </div>
-            <div class="input-submit">
-                <button type="submit" class="submit-btn">Entrar</button>
-            </div>
+            <form method="POST" action="{{ route('hectareas.index') }}">
+                @csrf
+                <input class="input-submit" type="hidden" name="usuario_id" value="{{  Auth::user()->nombre}}">
+
+                <button class="submit-btn" type="submit">Ir a Hectáreas</button>
+            </form>
         </form>
 
     </div>

@@ -23,4 +23,11 @@ class Hectarea extends Model
     {
         return $this->hasMany(Caja::class, 'id_hectarea');
     }
+
+    public static function getByUserId($userId)
+    {
+        return self::where('id_jefe_cuadrilla', $userId)->get();
+    }
+
+
 }
