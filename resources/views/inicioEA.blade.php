@@ -15,8 +15,8 @@
     <div class="content">
         <h1>Elija su Almacén</h1>
         <div class="options">
-            <div class="box">Calidad</div>
-            <div class="box">No Calidad</div>
+            <button class="box" onclick="window.location.href='{{ url('/ingresoCajasAlmacen') }}'">Calidad</button>
+            <button class="box" onclick="window.location.href='{{ url('/ingresoCajasAlmacen') }}'">No Calidad</button>
         </div>
     </div>
 </body>

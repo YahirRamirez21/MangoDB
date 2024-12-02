@@ -9,6 +9,9 @@ class Caja extends Model
 
     protected $table = 'cajas';
 
+    public $timestamps = false;
+
+
     public function hectarea()
     {
         return $this->belongsTo(Hectarea::class, 'id_hectarea');
@@ -26,6 +29,8 @@ class Caja extends Model
 
     public static function obtenerPorId($id)
     {
-        return self::find($id);
+        return self::with('posiciones')->find($id);
     }
+
+   
 }
