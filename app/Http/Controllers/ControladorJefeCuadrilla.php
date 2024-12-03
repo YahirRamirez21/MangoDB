@@ -22,13 +22,25 @@ class ControladorJefeCuadrilla extends Controller
 
     public function informacionHectarea($id)
     {
-        $hectarea = Hectarea::find($id); // Obtener la hectárea por ID
+        $hectarea = Hectarea::obtenerHectarea($id); // Obtener la hectárea por ID
 
         if ($hectarea) {
             return view('infoHectareaJC', compact('hectarea'));
         } else {
             return redirect()->route('inicioHectarea')->with('error', 'Hectárea no encontrada');
         }
+    }
+
+    public function cambiarEstadoCosecha(Request $request,$id){
+        $action = $request->input('action');
+        if($action == 'registrar') {
+            $hectarea = Hectarea::obtenerHectarea($id);
+            if($hectarea) {
+                Hectarea::cambiarEstado($hectarea);
+                return redirect()->route('hectareas.info', $id)->with('success', 'Estado de cosecha actualizado correctamente');
+            }
+        }
+        
     }
 
     

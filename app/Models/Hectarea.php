@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Hectarea extends Model
 {
 
     protected $table = 'hectareas';
+
+    public $timestamps = false;
 
     public function jefeCuadrilla()
     {
@@ -27,6 +30,15 @@ class Hectarea extends Model
     public static function getByUserId($userId)
     {
         return self::where('id_jefe_cuadrilla', $userId)->get();
+    }
+
+    public static function obtenerHectarea($id) {
+        return self::find($id);
+    }
+
+    public static function cambiarEstado($hectarea) {
+        $hectarea->fecha_recoleccion = Carbon::now();
+        $hectarea->save();
     }
 
 

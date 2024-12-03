@@ -46,3 +46,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/informacionHectarea/{id}', [ControladorJefeCuadrilla::class, 'informacionHectarea'])->name('hectareas.info');
+
+Route::post('/informacionHectarea/{id}/autorizar', [ControladorJefeCuadrilla::class, 'cambiarEstadoCosecha'])->name('hectareas.autorizar');
+

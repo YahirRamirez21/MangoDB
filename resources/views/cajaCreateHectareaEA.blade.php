@@ -35,6 +35,7 @@
                     <label for="fechaR">Fecha de recolección:</label>
                     <input type="number" id="fechaR" name="fechaR" readonly required>
                 </div>
+                <button type="submit" class="boton">Crear Caja</button> <br>
                 <button type="submit" class="boton">Imprimir</button>
             </form>
         </section>
