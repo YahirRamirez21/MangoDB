@@ -28,7 +28,7 @@ class ControladorLogin extends Controller
             // Redirigir según el rol del usuario
             return match ($usuario->rol) {
                 'Jefe de Cuadrilla' => redirect('/inicioHectarea'),
-                'Encargado de Almacén' => redirect('/inicioAlmacen'),
+                'Encargado de Almacen' => redirect('/inicioAlmacen'),
                 default => $this->logoutInvalidoRol(),
             };
         }
