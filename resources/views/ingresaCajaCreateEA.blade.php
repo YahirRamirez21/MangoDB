@@ -21,7 +21,7 @@
         <h1>Introducir Cajas</h1>
         <div class="search-container">
             <div class="search-box">
-                <form action="{{ url('/caja') }}" method="GET">
+                <form action="{{ url('/ingresoCajasAlmacen/' . $tipo) }}" method="GET">
                     <label for="box-id">ID:</label>
                     <input type="text" id="box-id" name="box-id" placeholder="Buscar caja">
                     <button type="submit" name="action" value="buscar">Buscar</button>
@@ -34,6 +34,7 @@
     <main>
         <div class="content">
             <section class="formulario">
+                <input type="text" name="tipo" value="{{ $tipo }}">
                 <h2>Etiqueta</h2>
 
                 @if (isset($caja))
