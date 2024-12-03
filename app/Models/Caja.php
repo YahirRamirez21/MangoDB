@@ -12,7 +12,7 @@ class Caja extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'hectarea_id',
+        'id_hectaria',
         'fecha_recoleccion',
     ];
 
@@ -37,5 +37,8 @@ class Caja extends Model
         return self::with('posiciones')->find($id);
     }
 
+    public static function registrarCaja(Caja $caja) {
+        return $caja->save();
+    }
     
 }

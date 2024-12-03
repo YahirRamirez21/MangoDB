@@ -35,9 +35,7 @@ Route::get('/informacionHectarea', function () {
     return view('infoHectareaJC');
 });
 
-Route::get('/crearCajaMangos', function () {
-    return view('cajaCreateHectareaEA');
-});
+Route::get('/crearCajaMangos/{hectarea_id}', [ControladorJefeCuadrilla::class, 'crearCajas'])->name('cajas.crear');
 
 Route::get('/caja', [ControladorEncargadoAlmacen::class, 'mostrarCaja']);
 
@@ -48,4 +46,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/informacionHectarea/{id}', [ControladorJefeCuadrilla::class, 'informacionHectarea'])->name('hectareas.info');
 
 Route::post('/informacionHectarea/{id}/autorizar', [ControladorJefeCuadrilla::class, 'cambiarEstadoCosecha'])->name('hectareas.autorizar');
+
+Route::post('hectareas/registrarCaja', [ControladorJefeCuadrilla::class, 'registrarCaja'])->name('hectareas.registrarCaja');
+
+
+
 

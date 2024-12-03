@@ -24,7 +24,7 @@
                     @csrf
                     <button class="boton" type="submit" name="action" value="registrar">Registrar Caja</button>
                 </form>
-                <button class="boton" onclick="window.location.href='{{ url('/crearCajaMangos') }}'">Crear Cajas</button>
+                <button class="boton" onclick="window.location.href='{{ route('cajas.crear', $hectarea->id) }}'">Crear Cajas</button>
             </section>
         </section>
         <a href="{{ route('hectareas.index') }}">Volver a la lista de hectáreas</a>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Hectarea;
 use App\Models\Caja;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ControladorJefeCuadrilla extends Controller
 {
@@ -22,26 +23,57 @@ class ControladorJefeCuadrilla extends Controller
 
     public function informacionHectarea($id)
     {
-        $hectarea = Hectarea::obtenerHectarea($id); // Obtener la hectárea por ID
+        $usuario = Auth::user();
+        if ($usuario) {
+            // Obtiene la hectárea y valida que pertenezca al usuario autenticado.
+            $hectarea = Hectarea::obtenerHectareaDeUsuario($id, $usuario->id);
 
-        if ($hectarea) {
+            if (!$hectarea) {
+                return redirect()->route('hectareas.index')->with('error', 'No tienes permiso para acceder a esta hectárea');
+            }
+
             return view('infoHectareaJC', compact('hectarea'));
-        } else {
-            return redirect()->route('inicioHectarea')->with('error', 'Hectárea no encontrada');
         }
     }
 
-    public function cambiarEstadoCosecha(Request $request,$id){
+    public function cambiarEstadoCosecha(Request $request, $id)
+    {
         $action = $request->input('action');
-        if($action == 'registrar') {
+        if ($action == 'registrar') {
             $hectarea = Hectarea::obtenerHectarea($id);
-            if($hectarea) {
+            if ($hectarea) {
                 Hectarea::cambiarEstado($hectarea);
                 return redirect()->route('hectareas.info', $id)->with('success', 'Estado de cosecha actualizado correctamente');
             }
         }
-        
     }
 
-    
+    public function crearCajas($hectarea_id)
+    {
+        return view('cajaCreateHectareaEA', compact('hectarea_id'));
+    }
+
+    public function registrarCaja(Request $request)
+    {
+        $action = $request->input('action');
+        if ($action == 'crear') {
+            $id = $request->input('hectarea');
+            $calidad = $request->input('calidad');
+            $kilogramos = $request->input('kilogramos');
+            $fecha_recoleccion = Carbon::now();
+
+            if (empty($kilogramos)) {
+                $caja = new Caja(); 
+                $caja->id_hectarea = $id;
+                $caja->kilogramos = $kilogramos;
+                $caja->calidad = $calidad;
+                $caja->fecha_cosecha = $fecha_recoleccion;
+                $cajaCreadaBD = Caja::registrarCaja($caja);
+                return view('cajaCreateHectareaEA', [
+                    'hectarea_id' => $id, 
+                    'cajaCreadaBD' => $cajaCreadaBD
+                ])->with('success', 'Caja creada con éxito.');
+            }
+        }
+    }
 }

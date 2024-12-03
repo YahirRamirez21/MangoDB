@@ -9,19 +9,21 @@
 <body>
     <x-menu/>
     <main>
-        <section class="formulario">
+    <section class="formulario">
             <h2>Etiqueta</h2>
-            <form action=" " method="POST">
+            <!-- Solo un formulario para todos los campos y el botón -->
+            <form action="{{ route('hectareas.registrarCaja') }}" method="POST">
+                @csrf   
                 <div class="campo">
                     <label for="id">ID:</label>
-                    <input type="text" id="id" name="id" readonly required>
+                    <input type="text" id="id" name="id" value="{{ old('id', $cajaCreadaBD->id ?? '') }}" readonly required>
                 </div>
                 <div class="campo">
                     <label for="hectarea">Hectárea:</label>
-                    <input type="text" id="hectarea" name="hectarea" readonly required>
+                    <input type="text" id="hectarea" name="hectarea" value="{{ $hectarea_id }}" readonly required>
                 </div>
                 <div class="campo">
-                <label for="calidad">Calidad:</label>
+                    <label for="calidad">Calidad:</label>
                     <select id="calidad" name="calidad" required>
                         <option value="Calidad">Calidad</option>
                         <option value="No Calidad">No Calidad</option>
@@ -33,10 +35,11 @@
                 </div>
                 <div class="campo">
                     <label for="fechaR">Fecha de recolección:</label>
-                    <input type="number" id="fechaR" name="fechaR" readonly required>
+                    <input type="text" id="fechaR" name="fechaR" value="{{ $cajaCreada->fecha_ingreso ?? '' }}" readonly required>
                 </div>
-                <button type="submit" class="boton">Crear Caja</button> <br>
-                <button type="submit" class="boton">Imprimir</button>
+
+                <!-- Solo un botón para crear la caja -->
+                <button name="action" value="crear" type="submit" class="boton">Crear Caja</button>
             </form>
         </section>
     </main>

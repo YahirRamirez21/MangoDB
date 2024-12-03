@@ -41,5 +41,10 @@ class Hectarea extends Model
         $hectarea->save();
     }
 
+    public static function obtenerHectareaDeUsuario($id, $userId)
+    {
+        // Obtiene la hectárea asegurando que pertenece al usuario autenticado.
+        return self::where('id', $id)->where('id_jefe_cuadrilla', $userId)->first();
+    }
 
 }
