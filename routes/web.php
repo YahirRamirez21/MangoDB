@@ -52,3 +52,4 @@ Route::post('hectareas/registrarCaja', [ControladorJefeCuadrilla::class, 'regist
 
 
 
+

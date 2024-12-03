@@ -12,7 +12,9 @@ class Caja extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id_hectaria',
+        'id_hectarea',
+        'calidad',
+        'kilogramos',
         'fecha_recoleccion',
     ];
 

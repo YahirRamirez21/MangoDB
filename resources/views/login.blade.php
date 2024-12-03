@@ -47,8 +47,8 @@
             </div>
             <form method="POST" action="{{ route('hectareas.index') }}">
                 @csrf
-                <input class="input-submit" type="hidden" name="usuario_id" value="{{  Auth::user()->nombre }}">
-                <!-- <input class="input-submit" type="hidden" name="usuario_id" value="{{ Auth::check() ? Auth::user()->nombre : '' }}"> -->
+                <input class="input-submit" type="hidden" name="usuario_id" value="{{ Auth::check() ? Auth::user()->nombre : '' }}">
+                
 
                 <button class="submit-btn" type="submit">Ir a Hectáreas</button>
             </form>
