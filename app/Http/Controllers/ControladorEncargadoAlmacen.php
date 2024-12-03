@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 class ControladorEncargadoAlmacen extends Controller
 {
-    public function mostrarCaja(Request $request)
+    public function mostrarCaja(Request $request, $tipo)
     {
         $action = $request->input('action');
 
@@ -26,10 +26,15 @@ class ControladorEncargadoAlmacen extends Controller
                 if (!$caja) {
                     return response()->json(['message' => 'Caja no encontrada'], 404);
                 }
+
+                // Valida que la caja pertenezca al almacén seleccionado
+                if (str_replace(' ','', $caja->calidad) !== $tipo) {
+                    return response()->json(['message' => 'La caja no pertenece al almacén seleccionado'], 400);
+                }
             }
 
             // Pasa la variable 'caja' (puede ser null o una caja encontrada) a la vista
-            return view('ingresaCajaCreateEA', compact('caja'));
+            return view('ingresaCajaCreateEA', compact('caja', 'tipo'));
         } elseif ($action == 'registrar') {
             // Verificar si el 'box-id' está presente en el formulario
             $id = $request->input('box-id'); // Obtener el ID de la caja
@@ -49,6 +54,11 @@ class ControladorEncargadoAlmacen extends Controller
                 return response()->json(['message' => 'Caja no encontrada'], 404);
             }
 
+            // Valida que la caja pertenezca al almacén seleccionado
+            if (str_replace(' ','', $caja->calidad) !== $tipo) {
+                return response()->json(['message' => 'La caja no pertenece al almacén seleccionado'], 400);
+            }
+
             // Actualizar los campos que faltan en la caja
             $caja->fecha_ingreso_almacen = Carbon::now(); // Fecha actual para ingreso a almacén
 
@@ -63,7 +73,10 @@ class ControladorEncargadoAlmacen extends Controller
             return view('ingresaCajaCreateEA', [
                 'caja' => $caja,
                 'posicion' => $posicion,
+                'tipo' => $tipo
             ]);
+        }else{
+            return view('ingresaCajaCreateEA', ['tipo' => $tipo]);
         }
     }
 }
