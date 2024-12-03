@@ -57,22 +57,29 @@ class ControladorJefeCuadrilla extends Controller
     {
         $action = $request->input('action');
         if ($action == 'crear') {
-            $id = $request->input('hectarea');
+            $id_hectarea = $request->input('hectarea');
             $calidad = $request->input('calidad');
             $kilogramos = $request->input('kilogramos');
             $fecha_recoleccion = Carbon::now();
 
-            if (empty($kilogramos)) {
-                $caja = new Caja(); 
-                $caja->id_hectarea = $id;
+            if (!empty($kilogramos)) {
+                $caja = new Caja();
+                $caja->id_hectarea = $id_hectarea;
                 $caja->kilogramos = $kilogramos;
                 $caja->calidad = $calidad;
                 $caja->fecha_cosecha = $fecha_recoleccion;
                 $cajaCreadaBD = Caja::registrarCaja($caja);
+                if ($cajaCreadaBD) {
+                    // Devolver la misma vista con los datos actualizados
+                    return view('cajaCreateHectareaEA', [
+                        'hectarea_id' => $id_hectarea,
+                        'cajaCreadaBD' => $caja
+                    ])->with('success', 'Caja creada con éxito.');
+                }
+            
                 return view('cajaCreateHectareaEA', [
-                    'hectarea_id' => $id, 
-                    'cajaCreadaBD' => $cajaCreadaBD
-                ])->with('success', 'Caja creada con éxito.');
+                    'hectarea_id' => $id_hectarea
+                ])->with('error', 'No se pudo crear la caja. Por favor, verifica los datos.');
             }
         }
     }
