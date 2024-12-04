@@ -10,11 +10,22 @@ use Carbon\Carbon;
 
 class ControladorJefeCuadrilla extends Controller
 {
+    protected $hectarea;
+    protected $caja;
+
+    // Constructor para inicializar los objetos
+    public function __construct(Hectarea $hectarea, Caja $caja)
+    {
+        $this->hectarea = $hectarea;
+        $this->caja = $caja;
+    }
+
     public function index(Request $request)
     {
         $usuario = Auth::user();
         if ($usuario) {
-            $hectareas = Hectarea::getByUserId($usuario->id); 
+            // Usar el objeto de Hectarea que ya ha sido inicializado
+            $hectareas = $this->hectarea->getByUserId($usuario->id); 
             return view('inicioJC', compact('hectareas')); 
         }
 
@@ -25,22 +36,22 @@ class ControladorJefeCuadrilla extends Controller
     {
         $usuario = Auth::user();
         if ($usuario) {
-            $hectarea = Hectarea::obtenerHectareaDeUsuario($id, $usuario->id);
+            // Usar el objeto de Hectarea
+            $hectarea = $this->hectarea->obtenerHectareaDeUsuario($id, $usuario->id);
 
             if (!$hectarea) {
                 return redirect()->route('hectareas.index')->with('error', 'No tienes permiso para acceder a esta hectárea');
             }
 
             $tipo = $hectarea->fecha_recoleccion ? 'autorizada' : 'no_autorizada';
-            $hectareasTipo = Hectarea::filtrarPorTipo($tipo, $usuario->id);
+            // Usar el objeto de Hectarea
+            $hectareasTipo = $this->hectarea->filtrarPorTipo($tipo, $usuario->id);
 
             $currentIndex = $hectareasTipo->search(function ($item) use ($id) {
                 return $item->id == $id;
             });
 
             return view('infoHectareaJC', compact('hectarea', 'hectareasTipo', 'tipo', 'currentIndex'));
-
-            return view('infoHectareaJC', compact('hectarea'));
         }
     }
 
@@ -48,9 +59,10 @@ class ControladorJefeCuadrilla extends Controller
     {
         $action = $request->input('action');
         if ($action == 'registrar') {
-            $hectarea = Hectarea::obtenerHectarea($id);
+            // Usar el objeto de Hectarea
+            $hectarea = $this->hectarea->obtenerHectarea($id);
             if ($hectarea) {
-                Hectarea::cambiarEstado($hectarea);
+                $hectarea->cambiarEstado();
                 return redirect()->route('hectareas.info', $id)->with('success', 'Estado de cosecha actualizado correctamente');
             }
         }
@@ -71,14 +83,14 @@ class ControladorJefeCuadrilla extends Controller
             $fecha_recoleccion = Carbon::now();
 
             if (!empty($kilogramos)) {
-                $caja = new Caja();
+                $caja = $this->caja;
                 $caja->id_hectarea = $id_hectarea;
                 $caja->kilogramos = $kilogramos;
                 $caja->calidad = $calidad;
                 $caja->fecha_cosecha = $fecha_recoleccion;
-                $cajaCreadaBD = Caja::registrarCaja($caja);
+                // Usar el objeto de Caja para registrar
+                $cajaCreadaBD = $caja->registrarCaja();
                 if ($cajaCreadaBD) {
-                    
                     return view('cajaCreateHectareaEA', [
                         'hectarea_id' => $id_hectarea,
                         'cajaCreadaBD' => $caja
@@ -96,7 +108,8 @@ class ControladorJefeCuadrilla extends Controller
         $usuario = Auth::user();
         if ($usuario) {
             $tipo = $request->input('tipo');
-            $hectareas = Hectarea::filtrarPorTipo($tipo, $usuario->id);
+            // Usar el objeto de Hectarea
+            $hectareas = $this->hectarea->filtrarPorTipo($tipo, $usuario->id);
             return view('inicioJC', compact('hectareas'));
         }
 
