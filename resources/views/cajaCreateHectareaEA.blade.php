@@ -46,6 +46,9 @@
             </form>
         </section>
     </main>
+    <a href="{{ route('hectareas.index') }}">
+        <button class="botonV" type="button">Volver</button>
+    </a>
 </body>
 
 </html>
