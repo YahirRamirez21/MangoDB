@@ -18,25 +18,27 @@
 
 
     <div class="content">
-        <h1>Introducir Cajas</h1>
+        <h1>Introducir Cajas en Almacén {{ $tipo }}</h1>
         <div class="search-container">
             <div class="search-box">
                 <form action="{{ url('/ingresoCajasAlmacen/' . $tipo) }}" method="GET">
-                    <label for="box-id">ID:</label>
+                    <label for="box-id">Ingresa ID de la Caja:</label>
                     <input type="text" id="box-id" name="box-id" placeholder="Buscar caja"value={{ request()->input('box-id') }}>
-                    <button type="submit" name="action" value="buscar">Buscar</button>
-                    <button type="submit" name="action" value="registrar">Registrar Caja</button>
+                    <button type="submit" name="action" value="buscar" class="boton">Buscar</button>
                 </form>
             </div>
         </div>
     </div>
-
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <main>
         <div class="content">
             <section class="formulario">
                 <input class="tipo-calidad" type="text" name="tipo" value="{{ $tipo }}">
-                <h2>Almacén de {{ $tipo }}</h2>
-                <h2>Etiqueta</h2>
+                <h2>Etiqueta de Caja</h2>
 
                 @if (isset($caja))
                 <form action=" " method="POST">
@@ -68,12 +70,23 @@
                         <label for="posicion">Posición:</label>
                         <input type="text" id="posicion" name="posicion" value="E {{ $posicion->estante ?? 'N/A' }} - D {{ $posicion->division ?? 'N/A' }} - S {{ $posicion->subdivision ?? 'N/A' }}" readonly required>
                     </div>
-                    <button class="boton">Imprimir</button>
+                    <form action="{{ url('/ingresoCajasAlmacen/' . $tipo) }}" method="POST">
+                        @csrf
+                        <button type="submit" name="action" value="registrar" class="boton" {{ $posicion ? 'disabled' : '' }}>Registrar Caja</button>
+                    </form>
+                    <button class="boton" onClick="showAlert()" {{ $caja->fecha_ingreso_almacen ? '' : 'disabled' }}>Imprimir</button>
                 </form>
                 @endif
             </section>
         </div>
     </main>
+
+    <script>
+        function showAlert() {
+            event.preventDefault();
+            alert('Imprimiendo Etiqueta de Caja ...');
+        }
+    </script>
 </body>
 
 </html>

@@ -33,6 +33,8 @@ Route::get('/informacionHectarea', function () {
 });
 Route::get('/ingresoCajasAlmacen/{tipo}', [ControladorEncargadoAlmacen::class, 'mostrarCaja']);
 
+Route::post('/ingresoCajasAlmacen/{tipo}', [ControladorEncargadoAlmacen::class, 'registrarCaja']);
+
 Route::get('/crearCajaMangos/{hectarea_id}', [ControladorJefeCuadrilla::class, 'crearCajas'])->name('cajas.crear');
 
 Route::get('/caja', [ControladorEncargadoAlmacen::class, 'mostrarCaja']);
