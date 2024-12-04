@@ -41,6 +41,8 @@
                     <input type="text" id="fechaR" name="fechaR" value="{{ old('fechaR', $cajaCreadaBD->fecha_cosecha ?? '') }}" readonly required>
                 </div>
                 <button name="action" value="crear" type="submit" class="boton">Crear Caja</button>
+                <br>
+                <button name="action" type="submit" class="boton">Imprimir</button>
             </form>
         </section>
     </main>

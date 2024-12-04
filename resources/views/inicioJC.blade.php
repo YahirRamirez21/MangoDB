@@ -18,16 +18,17 @@
             @if($hectareas->isEmpty())
             <p>No tienes hectáreas asignadas.</p>
             @else
-            <div>
+            <div class="listaHectareas">
                 @foreach($hectareas as $hectarea)
-                <button>
-                    <strong>Hectarea:</strong> {{ $hectarea->id ?? 'Sin id' }}<br>
+                <div class="itemHectarea">
+                    <strong>Hectárea:</strong> {{ $hectarea->id ?? 'Sin id' }}<br>
                     <strong>Renta:</strong> {{ $hectarea->renta ?? 'Sin renta' }}<br>
                     <strong>Porcentaje:</strong> {{ $hectarea->porcentaje_general ?? 'Sin Porcentaje general' }}<br>
-                    <a href="{{ route('hectareas.info', $hectarea->id) }}">Ver Información</a>
-                </button>
+                    <a class="botonVerInfo" href="{{ route('hectareas.info', $hectarea->id) }}">Ver Información</a>
+                </div>
                 @endforeach
             </div>
+
             @endif
         </section>
 
