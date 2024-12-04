@@ -13,7 +13,9 @@
 <body>
     <div class="login-box">
         <div class="login-header">
-            <header>Login</header>
+            <header>
+                <img src="{{ asset('img/logo.png') }}" class="logo">
+            </header>
         </div>
 
         <form method="POST" action="{{ route('login.post') }}">
@@ -48,7 +50,7 @@
             <form method="POST" action="{{ route('hectareas.index') }}">
                 @csrf
                 <input class="input-submit" type="hidden" name="usuario_id" value="{{ Auth::check() ? Auth::user()->nombre : '' }}">
-                
+
 
                 <button class="submit-btn" type="submit">Ir a Hectáreas</button>
             </form>
