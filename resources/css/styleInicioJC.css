@@ -69,36 +69,36 @@ p {
     padding-top: 30px;
     width: 450px;
     margin: 20px auto;
-    background-color: white; /* Fondo ligero */
-    border: 1px solid #ddd; /* Borde suave */
-    border-radius: 8px; /* Bordes redondeados */
-    padding: 20px; /* Relleno alrededor de los elementos */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
 }
 
 .inputs {
-    font-size: 18px; /* Tamaño de fuente ligeramente más pequeño */
+    font-size: 18px;
     display: flex;
-    flex-direction: column; /* Alineación en columna */
-    gap: 15px; /* Espacio entre los elementos */
+    flex-direction: column;
+    gap: 15px;
 }
 
 .inputs label {
     display: flex;
-    align-items: center; /* Alineación vertical de los radio buttons y el texto */
-    gap: 5px; /* Espacio entre el radio button y el texto */
-    cursor: pointer; /* Cambiar el cursor a mano al pasar por encima */
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
 }
 
 .inputs input[type="radio"] {
     width: 20px;
     height: 20px;
-    margin-right: 10px; /* Espacio extra entre el radio button y la etiqueta */
+    margin-right: 10px;
 }
 
 .inputs label:hover {
-    color: #007bff; /* Cambio de color al pasar el ratón sobre la etiqueta */
+    color: #007bff;
 }
 
 .inputs input[type="radio"]:checked {
-    accent-color: #007bff; /* Cambiar color del radio button cuando está seleccionado */
+    accent-color: #007bff;
 }

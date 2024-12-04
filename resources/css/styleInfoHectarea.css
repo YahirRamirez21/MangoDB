@@ -89,11 +89,11 @@
 .boton-subespacio {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #15491a; /* Color de fondo */
-    color: white; /* Color del texto */
+    background-color: #15491a;
+    color: white;
     text-align: center;
-    text-decoration: none; /* Elimina el subrayado */
-    border-radius: 5px; /* Bordes redondeados */
+    text-decoration: none;
+    border-radius: 5px;
     font-size: 16px;
     transition: background-color 0.3s ease;
 }
@@ -138,7 +138,7 @@ a .boton{
 #sectionBotonesHectarea {
     display: flex;
     flex-direction: column;
-    gap: 15px; 
+    gap: 15px;
     align-items: center;
 }
 
