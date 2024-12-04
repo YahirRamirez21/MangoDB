@@ -9,7 +9,7 @@ class Hectarea extends Model
 {
 
     protected $table = 'hectareas';
-
+    protected $fillable = ['estado', 'id_jefe_cuadrilla', 'renta', 'porcentaje_general'];
     public $timestamps = false;
 
     public function jefeCuadrilla()
@@ -32,11 +32,13 @@ class Hectarea extends Model
         return self::where('id_jefe_cuadrilla', $userId)->get();
     }
 
-    public static function obtenerHectarea($id) {
+    public static function obtenerHectarea($id)
+    {
         return self::find($id);
     }
 
-    public static function cambiarEstado($hectarea) {
+    public static function cambiarEstado($hectarea)
+    {
         $hectarea->fecha_recoleccion = Carbon::now();
         $hectarea->save();
     }
@@ -47,4 +49,18 @@ class Hectarea extends Model
         return self::where('id', $id)->where('id_jefe_cuadrilla', $userId)->first();
     }
 
+    public static function filtrarPorTipo($tipo, $userId)
+    {
+        $query = self::where('id_jefe_cuadrilla', $userId);
+
+        if ($tipo) {
+            if ($tipo == 'autorizada') {
+                $query->whereNotNull('fecha_recoleccion');  // Filtrar por fecha_recoleccion no null (autorizada)
+            } elseif ($tipo == 'no_autorizada') {
+                $query->whereNull('fecha_recoleccion');  // Filtrar por fecha_recoleccion null (no autorizada)
+            }
+        }
+
+        return $query->get();  // Retornar las hectáreas filtradas
+    }
 }

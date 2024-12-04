@@ -76,11 +76,28 @@ class ControladorJefeCuadrilla extends Controller
                         'cajaCreadaBD' => $caja
                     ])->with('success', 'Caja creada con éxito.');
                 }
-            
+
                 return view('cajaCreateHectareaEA', [
                     'hectarea_id' => $id_hectarea
                 ])->with('error', 'No se pudo crear la caja. Por favor, verifica los datos.');
             }
         }
+    }
+
+    public function filtrarHectareas(Request $request)
+    {
+        $usuario = Auth::user();
+        if ($usuario) {
+            // Obtener el tipo seleccionado
+            $tipo = $request->input('tipo');
+
+            // Filtrar las hectáreas usando el modelo
+            $hectareas = Hectarea::filtrarPorTipo($tipo, $usuario->id);
+
+            // Devolver la vista con las hectáreas filtradas
+            return view('inicioJC', compact('hectareas'));
+        }
+
+        return redirect()->route('login')->with('error', 'Usuario no autenticado');
     }
 }

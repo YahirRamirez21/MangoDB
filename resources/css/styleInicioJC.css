@@ -54,3 +54,14 @@ body {
     background-color: #45a049;
     transform: scale(1.05);
 }
+
+.contenedor_inputs {
+    padding-top: 30px;
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.inputs {
+    font-size: 20px;
+}

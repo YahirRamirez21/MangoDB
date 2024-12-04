@@ -47,6 +47,8 @@ Route::post('/informacionHectarea/{id}/autorizar', [ControladorJefeCuadrilla::cl
 
 Route::post('hectareas/registrarCaja', [ControladorJefeCuadrilla::class, 'registrarCaja'])->name('hectareas.registrarCaja');
 
+Route::get('/hectareas/filtrar', [ControladorJefeCuadrilla::class, 'filtrarHectareas'])->name('hectareas.filtrar');
+
 
 
 
