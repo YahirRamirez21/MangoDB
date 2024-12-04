@@ -23,7 +23,7 @@
             <div class="search-box">
                 <form action="{{ url('/ingresoCajasAlmacen/' . $tipo) }}" method="GET">
                     <label for="box-id">ID:</label>
-                    <input type="text" id="box-id" name="box-id" placeholder="Buscar caja">
+                    <input type="text" id="box-id" name="box-id" placeholder="Buscar caja"value={{ request()->input('box-id') }}>
                     <button type="submit" name="action" value="buscar">Buscar</button>
                     <button type="submit" name="action" value="registrar">Registrar Caja</button>
                 </form>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="campo">
                         <label for="posicion">Posición:</label>
-                        <input type="text" id="posicion" name="posicion" value="Estante {{ $posicion->estante ?? 'N/A' }} - División {{ $posicion->division ?? 'N/A' }} - Subdivision {{ $posicion->subdivision ?? 'N/A' }}" readonly required>
+                        <input type="text" id="posicion" name="posicion" value="E {{ $posicion->estante ?? 'N/A' }} - D {{ $posicion->division ?? 'N/A' }} - S {{ $posicion->subdivision ?? 'N/A' }}" readonly required>
                     </div>
                     <button class="boton">Imprimir</button>
                 </form>
