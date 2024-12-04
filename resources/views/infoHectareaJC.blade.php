@@ -27,7 +27,10 @@
                 <button class="boton" onclick="window.location.href='{{ route('cajas.crear', $hectarea->id) }}'">Crear Cajas</button>
             </section>
         </section>
-        <a href="{{ route('hectareas.index') }}">Volver a la lista de hectáreas</a>
+        <a href="{{ route('hectareas.index') }}">
+            <button class="boton" type="button">Volver</button>
+        </a>
+
     </main>
 </body>
 
