@@ -22,9 +22,9 @@
             <section id="sectionBotonesHectarea">
                 <form action="{{ route('hectareas.autorizar', $hectarea->id) }}" method="POST" style="display:inline;">
                     @csrf
-                    <button class="boton" type="submit" name="action" value="registrar">Registrar Caja</button>
+                    <button class="boton" type="submit" {{ $hectarea->porcentaje_general >= 80 ? '' : 'disabled' }} name="action" value="registrar">Autorizar Hectarea</button>
                 </form>
-                <button class="boton" onclick="window.location.href='{{ route('cajas.crear', $hectarea->id) }}'">Crear Cajas</button>
+                <button class="boton" {{ $hectarea->fecha_recoleccion ? '' : 'disabled' }} onclick="window.location.href='{{ route('cajas.crear', $hectarea->id) }}'">Crear Cajas</button>
             </section>
         </section>
         <a href="{{ route('hectareas.index') }}">Volver a la lista de hectáreas</a>
