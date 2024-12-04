@@ -26,8 +26,6 @@ class Hectarea extends Model
         return $this->hasMany(Caja::class, 'id_hectarea');
     }
 
-    // Métodos no estáticos
-
     public function getByUserId($userId)
     {
         return $this->where('id_jefe_cuadrilla', $userId)->get();
