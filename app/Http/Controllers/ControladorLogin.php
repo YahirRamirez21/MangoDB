@@ -21,8 +21,16 @@ class ControladorLogin extends Controller
             'password' => 'required|string',
         ]);
 
+        // Verificar si el usuario ya está logueado en otra sesión
+        if (Usuario::estaLogueadoEnOtraSesion($request->input('nombre'))) {
+            return back()->withErrors(['nombre' => 'Este usuario ya está logueado en otra sesión.']);
+        }
+
         // Intentar autenticación
         if (Auth::attempt($request->only('nombre', 'password'), $request->filled('remember'))) {
+            // Marcar al usuario como logueado usando caché
+            Usuario::marcarComoLogueado(Auth::user()->nombre);
+            
             $usuario = Auth::user();
 
             // Redirigir según el rol del usuario
@@ -41,5 +49,17 @@ class ControladorLogin extends Controller
     {
         Auth::logout();
         return redirect('/login')->withErrors(['rol' => 'Rol no válido.']);
+    }
+
+    public function logout(Request $request)
+    {
+        // Eliminar la clave de caché cuando el usuario se desloguea
+        Usuario::eliminarSesion(Auth::user()->nombre);
+
+        // Desloguear al usuario
+        Auth::logout();
+
+        // Redirigir al login
+        return redirect('/login');
     }
 }
