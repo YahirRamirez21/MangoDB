@@ -9,6 +9,16 @@ use Carbon\Carbon;
 
 class ControladorEncargadoAlmacen extends Controller
 {
+    // Inyectamos los modelos en el constructor
+    protected $caja;
+    protected $posicion;
+
+    public function __construct(Caja $caja, Posicion $posicion)
+    {
+        $this->caja = $caja;
+        $this->posicion = $posicion;
+    }
+
     public function mostrarCaja(Request $request, $tipo)
     {
         $action = $request->input('action');
@@ -20,7 +30,7 @@ class ControladorEncargadoAlmacen extends Controller
             if ($request->has('box-id') && $request->input('box-id') != '') {
                 // Si el usuario ha ingresado un ID, busca la caja
                 $id = $request->input('box-id');
-                $caja = Caja::obtenerPorId($id);
+                $caja = $this->caja->obtenerPorId($id);
 
                 // Si no se encuentra la caja, se puede devolver un mensaje de error
                 if (!$caja) {
@@ -28,7 +38,7 @@ class ControladorEncargadoAlmacen extends Controller
                 }
 
                 // Valida que la caja pertenezca al almacén seleccionado
-                if (str_replace(' ','', $caja->calidad) !== $tipo) {
+                if (str_replace(' ', '', $caja->calidad) !== $tipo) {
                     return response()->json(['message' => 'La caja no pertenece al almacén seleccionado'], 400);
                 }
             }
@@ -41,13 +51,13 @@ class ControladorEncargadoAlmacen extends Controller
 
 
             // Verificar si ya existe una posición asignada para esta caja
-            if (Posicion::posicionExiste($id)) {
+            if ($this->posicion->posicionExiste($id)) {
                 // Si ya existe una posición, devolver un error
                 return response()->json(['message' => 'La caja ya tiene una posición asignada'], 400);
             }
 
             // Buscar la caja existente por ID
-            $caja = Caja::obtenerPorId($id);
+            $caja = $this->caja->obtenerPorId($id);
 
             if (!$caja) {
                 // Si no se encuentra la caja, devolver un error
@@ -55,7 +65,7 @@ class ControladorEncargadoAlmacen extends Controller
             }
 
             // Valida que la caja pertenezca al almacén seleccionado
-            if (str_replace(' ','', $caja->calidad) !== $tipo) {
+            if (str_replace(' ', '', $caja->calidad) !== $tipo) {
                 return response()->json(['message' => 'La caja no pertenece al almacén seleccionado'], 400);
             }
 
@@ -63,11 +73,10 @@ class ControladorEncargadoAlmacen extends Controller
             $caja->fecha_ingreso_almacen = Carbon::now(); // Fecha actual para ingreso a almacén
 
             // Si se quiere actualizar la posición de la caja, primero puedes obtener la posición o crear una nueva
-            $posicion = Posicion::asignarPosicion($caja);
+            $posicion = $this->posicion->asignarPosicion($caja);
 
             // Guardar los cambios en la caja
             $caja->save();
-
 
             // Redirigir con un mensaje de éxito
             return view('ingresaCajaCreateEA', [
@@ -75,7 +84,7 @@ class ControladorEncargadoAlmacen extends Controller
                 'posicion' => $posicion,
                 'tipo' => $tipo
             ]);
-        }else{
+        } else {
             return view('ingresaCajaCreateEA', ['tipo' => $tipo]);
         }
     }
