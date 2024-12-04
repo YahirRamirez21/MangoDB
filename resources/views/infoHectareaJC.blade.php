@@ -20,7 +20,7 @@
 
             </section>
             <section id="sectionBotonesHectarea">
-                <form action="{{ route('hectareas.autorizar', $hectarea->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('hectareas.autorizar', $hectarea->id) }}" method="POST" style="display:inline;" class="form">
                     @csrf
                     <button class="boton" type="submit" {{ $hectarea->porcentaje_general >= 80 ? '' : 'disabled' }} name="action" value="registrar">Autorizar Hectarea</button>
                 </form>

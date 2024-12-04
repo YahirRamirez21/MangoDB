@@ -16,7 +16,7 @@
         <form method="GET" action="{{ route('hectareas.filtrar') }}">
             <section class="contenedor_inputs">
                 <div class="inputs">
-                    <label>Seleccione sus opciones:</label><br>
+                    <label>Seleccione la opción para filtrar:</label>
                     <label><input type="radio" name="tipo" value="autorizada" {{ old('tipo') == 'autorizada' ? 'checked' : '' }}>Autorizada</label>
                     <label><input type="radio" name="tipo" value="no_autorizada" {{ old('tipo') == 'no_autorizada' ? 'checked' : '' }}>No Autorizada</label>
                 </div>

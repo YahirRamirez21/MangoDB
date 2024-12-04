@@ -34,7 +34,7 @@
                 </div>
                 <div class="campo">
                     <label for="kilogramos">Kilogramos:</label>
-                    <input type="number" id="kilogramos" name="kilogramos" value="{{ old('kilogramos', $cajaCreadaBD->kilogramos ?? '') }}" required>
+                    <input type="number" id="kilogramos" name="kilogramos" value="{{ old('kilogramos', $cajaCreadaBD->kilogramos ?? '') }}" required min="0">
                 </div>
                 <div class="campo">
                     <label for="fechaR">Fecha de recolección:</label>
@@ -42,13 +42,20 @@
                 </div>
                 <button name="action" value="crear" type="submit" class="boton">Crear Caja</button>
                 <br>
-                <button name="action" type="submit" class="boton">Imprimir</button>
+                <button name="action" type="imprimir" onclick="showAlert()" class="boton" {{ empty($cajaCreadaBD->fecha_cosecha) ? 'disabled' : '' }}>Imprimir</button>
             </form>
         </section>
     </main>
     <a href="{{ route('hectareas.index') }}">
         <button class="botonV" type="button">Volver</button>
     </a>
+
+    <script>
+        function showAlert() {
+            event.preventDefault();
+            alert('Imprimiendo Etiqueta de Caja ...');
+        }
+    </script>
 </body>
 
 </html>
