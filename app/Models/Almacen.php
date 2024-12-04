@@ -15,17 +15,11 @@ class Almacen extends Model
 
     public function tieneEspacio()
     {
-        $totalEstantes = $this->posiciones()->count();
-        return $totalEstantes < $this->capacidad;
+        return $this->posiciones()->count() < $this->capacidad;
     }
 
-    public function verificarCapacidadPosicion($estante, $division, $subdivision)
+    public function findByTipo($tipo)
     {
-        return !Posicion::where('id_almacen', $this->id)
-            ->where('estante', $estante)
-            ->where('division', $division)
-            ->where('subdivision', $subdivision)
-            ->lockForUpdate()
-            ->exists();
+        return $this->where('tipo', $tipo)->first();
     }
 }
