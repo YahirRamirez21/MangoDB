@@ -86,15 +86,51 @@
     color: #15491A;
 }
 
+.boton-subespacio {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #15491a; /* Color de fondo */
+    color: white; /* Color del texto */
+    text-align: center;
+    text-decoration: none; /* Elimina el subrayado */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.disabled{
+    background-color: #DAD7CD;
+    color: #15491A;
+    cursor:not-allowed;
+}
+
+.navegacion{
+    display: inline;
+}
+
 .form {
     width:100%;
     max-width:300px;
 }
 
-a{
-    text-decoration: none;
+
+
+#navegacion-hectarea{
+    background-color: white;
+    padding: 30px;
+    max-width: 300px;
+    border-radius: 15px;
 }
 
+
+a{
+    text-decoration: none;
+
+}
+
+#titulo {
+    padding-left: 80px;
+}
 a .boton{
     margin-left: 6%;
 }

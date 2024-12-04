@@ -11,6 +11,7 @@
 <body>
     <x-menu />
     <main>
+        <h2 id="titulo">Información Hectárea</h2>
         <section id="contenedor">
             <section id="sectionInfoHectarea">
                 <h2>Hectárea {{ $hectarea->id }}</h2>
@@ -20,12 +21,7 @@
             </section>
 
             <section id="sectionBotonesHectarea">
-<<<<<<< Updated upstream
                 <form action="{{ route('hectareas.autorizar', $hectarea->id) }}" method="POST" style="display:inline;" class="form">
-=======
-                <!-- Formulario para autorizar la hectárea -->
-                <form action="{{ route('hectareas.autorizar', $hectarea->id) }}" method="POST" style="display:inline;">
->>>>>>> Stashed changes
                     @csrf
                     <button class="boton" type="submit" {{ $hectarea->porcentaje_general >= 80 ? '' : 'disabled' }} name="action" value="registrar">Autorizar Hectárea</button>
                 </form>
@@ -35,15 +31,19 @@
             </section>
 
             <!-- Navegación entre hectáreas del mismo tipo (subespacio cerrado) -->
-            <section id="navegacion-hectarea">
+            <section id="navegacion-hectarea" >
                 <div class="navegacion">
-                    @if($currentIndex > 0)
-                        <a href="{{ route('hectareas.info', $hectareasTipo[$currentIndex - 1]->id) }}">Anterior</a>
-                    @endif
-                    <a href="{{ route('hectareas.index') }}">Volver</a>
-                    @if(isset($hectareasTipo[$currentIndex + 1]))
-                        <a href="{{ route('hectareas.info', $hectareasTipo[$currentIndex + 1]->id) }}">Siguiente</a>
-                    @endif
+                @if($currentIndex > 0)
+                    <a href="{{ route('hectareas.info', $hectareasTipo[$currentIndex - 1]->id) }}" class="boton-subespacio">Anterior</a>
+                @else
+                    <a href="#" class="boton-subespacio disabled">Anterior</a> <!-- Deshabilitado -->
+                @endif
+                
+                @if(isset($hectareasTipo[$currentIndex + 1]))
+                    <a href="{{ route('hectareas.info', $hectareasTipo[$currentIndex + 1]->id) }}" class="boton-subespacio">Siguiente</a>
+                @else
+                    <a href="#" class="boton-subespacio disabled">Siguiente</a> <!-- Deshabilitado -->
+                @endif
                 </div>
             </section>
         </section>
