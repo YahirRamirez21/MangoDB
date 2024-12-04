@@ -7,7 +7,6 @@ body {
     color: #333;
 }
 
-/* Formulario */
 main {
     display: flex;
     justify-content: center;
@@ -27,7 +26,7 @@ main {
 .formulario h2 {
     margin-top: 0;
     margin-bottom: 20px;
-    color: #4CAF50;
+    color: #15491a;
     text-align: center;
 }
 
@@ -57,7 +56,7 @@ main {
 }
 
 .campo select {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -74,7 +73,7 @@ main {
 .boton {
     display: block;
     margin: 0 auto;
-    background-color: #4CAF50;
+    background-color: #15491a;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -82,8 +81,33 @@ main {
     border-radius: 5px;
     cursor: pointer;
     width: 50%;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .boton:hover {
     background-color: #45a049;
+    transform: scale(1.05);
 }
+
+.botonV {
+    display: block;
+    position: absolute; 
+    top: 15%; 
+    left: 5%; 
+    margin: 0; 
+    background-color: #15491a;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 10%;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.botonV:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+

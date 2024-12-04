@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio Encargado Almacen</title>
     <link rel="stylesheet" >
-    @vite('resources/css/styleinicioEA.css')
+    @vite(['resources/css/styleinicioEA.css', 'resources/css/style-components/styleComponents.css'])
 </head>
 <body>
     <x-menu/>
