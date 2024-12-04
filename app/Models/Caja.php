@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Caja extends Model
 {
-
     protected $table = 'cajas';
 
     public $timestamps = false;
@@ -18,7 +17,6 @@ class Caja extends Model
         'fecha_recoleccion',
     ];
 
-
     public function hectarea()
     {
         return $this->belongsTo(Hectarea::class, 'id_hectarea');
@@ -29,18 +27,14 @@ class Caja extends Model
         return $this->hasMany(Posicion::class, 'id_caja');
     }
 
-    public function cajasVentas()
+    public function findById($id)
     {
-        return $this->hasMany(CajaVenta::class, 'id_caja');
+        return $this->with('posiciones')->find($id);
     }
 
-    public static function obtenerPorId($id)
+    public function registrarFechaIngreso()
     {
-        return self::with('posiciones')->find($id);
+        $this->fecha_ingreso_almacen = now();
+        $this->save();
     }
-
-    public static function registrarCaja(Caja $caja) {
-        return $caja->save();
-    }
-    
 }
