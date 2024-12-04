@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ControladorLogin extends Controller
 {
+    private Usuario $usuario;
+
+    public function __construct()
+    {
+        $this->usuario = new Usuario();
+    }
+
     public function vistaLogin()
     {
         return view('login');
@@ -21,12 +28,12 @@ class ControladorLogin extends Controller
             'password' => 'required|string',
         ]);
 
-        if (Usuario::estaLogueadoEnOtraSesion($request->input('nombre'))) {
+        if ($this->usuario->estaLogueadoEnOtraSesion($request->input('nombre'))) {
             return back()->withErrors(['nombre' => 'Este usuario ya está logueado en otra sesión.']);
         }
 
         if (Auth::attempt($request->only('nombre', 'password'), $request->filled('remember'))) {
-            Usuario::marcarComoLogueado(Auth::user()->nombre);
+            $this->usuario->marcarComoLogueado(Auth::user()->nombre);
 
             $usuarioLogeado = Auth::user();
 
@@ -48,7 +55,7 @@ class ControladorLogin extends Controller
 
     public function logout(Request $request)
     {
-        Usuario::eliminarSesion(Auth::user()->nombre);
+        $this->usuario->eliminarSesion(Auth::user()->nombre);
 
         Auth::logout();
 

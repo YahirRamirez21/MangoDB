@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class ControladorEncargadoAlmacen extends Controller
 {
-    // Inyectamos los modelos en el constructor
     protected $caja;
     protected $posicion;
 
