@@ -32,6 +32,18 @@ class ControladorJefeCuadrilla extends Controller
                 return redirect()->route('hectareas.index')->with('error', 'No tienes permiso para acceder a esta hectárea');
             }
 
+            // Filtrar hectáreas autorizadas o no autorizadas
+            $tipo = $hectarea->fecha_recoleccion ? 'autorizada' : 'no_autorizada';
+            $hectareasTipo = Hectarea::filtrarPorTipo($tipo, $usuario->id);
+
+            // Obtener el índice de la hectárea actual dentro del arreglo de hectáreas filtradas
+            $currentIndex = $hectareasTipo->search(function ($item) use ($id) {
+                return $item->id == $id;
+            });
+
+            // Pasar la hectárea actual y las hectáreas filtradas a la vista
+            return view('infoHectareaJC', compact('hectarea', 'hectareasTipo', 'tipo', 'currentIndex'));
+
             return view('infoHectareaJC', compact('hectarea'));
         }
     }
