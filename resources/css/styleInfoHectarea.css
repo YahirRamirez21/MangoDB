@@ -81,6 +81,15 @@
     background-color: #388E3C; 
     transform: scale(1);
 }
+.boton:disabled {
+    background-color: #DAD7CD;
+    color: #15491A;
+}
+
+.form {
+    width:100%;
+    max-width:300px;
+}
 
 a{
     text-decoration: none;

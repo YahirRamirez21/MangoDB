@@ -89,6 +89,11 @@ main {
     transform: scale(1.05);
 }
 
+.boton:disabled {
+    background-color: #DAD7CD;
+    color: #15491A;
+}
+
 .botonV {
     display: block;
     position: absolute; 
