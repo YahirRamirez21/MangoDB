@@ -27,7 +27,7 @@ class Posicion extends Model
             $tipo = $caja->calidad;
             $almacen = Almacen::where('tipo', $tipo)->first();
 
-            if (!$almacen->tieneEspacio()) {//que no revase la capacidad del almacen
+            if (!$almacen->tieneEspacio()) {
                 return self::asignarPosicionPEPS($almacen, $caja);
             }
 
@@ -35,7 +35,6 @@ class Posicion extends Model
             $division = 1;
             $subdivision = 1;
 
-            // Bloqueo explícito para garantizar que la posición no sea asignada por otro usuario
             while (!$almacen->verificarCapacidadPosicion($estante, $division, $subdivision)) {
                 $subdivision++;
                 if ($subdivision > 3) {
@@ -51,7 +50,6 @@ class Posicion extends Model
                 }
             }
 
-            // Verificación final en caso de alta concurrencia
             $posicionExistente = self::where('id_almacen', $almacen->id)
                 ->where('estante', $estante)
                 ->where('division', $division)

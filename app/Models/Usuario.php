@@ -39,14 +39,12 @@ class Usuario extends Authenticatable
      */
     public static function estaLogueadoEnOtraSesion($nombre)
     {
-        // Usamos un bloqueo para prevenir la concurrencia
         $lockKey = 'usuario_logueado:' . $nombre;
-        $lock = Cache::lock($lockKey, 10); // Tiempo de espera para adquirir el bloqueo (10 segundos)
+        $lock = Cache::lock($lockKey, 10); 
 
-        // Intentamos adquirir el bloqueo, si no podemos, es porque otro proceso lo tiene
         if ($lock->get()) {
             $isLoggedIn = Cache::has($lockKey);
-            $lock->release();  // Liberamos el bloqueo
+            $lock->release();
 
             return $isLoggedIn;
         }
@@ -54,33 +52,25 @@ class Usuario extends Authenticatable
         return false;
     }
 
-    /**
-     * Marca al usuario como logueado, usando caché.
-     */
     public static function marcarComoLogueado($nombre)
     {
         $lockKey = 'usuario_logueado:' . $nombre;
-        $lock = Cache::lock($lockKey, 10); // Tiempo de espera para adquirir el bloqueo (10 segundos)
+        $lock = Cache::lock($lockKey, 10);
 
-        // Intentamos adquirir el bloqueo, si no podemos, es porque otro proceso lo tiene
         if ($lock->get()) {
             Cache::put($lockKey, true, now()->addMinutes(30));
-            $lock->release(); // Liberamos el bloqueo
+            $lock->release(); 
         }
     }
 
-    /**
-     * Elimina el estado de sesión del usuario en la caché.
-     */
     public static function eliminarSesion($nombre)
     {
         $lockKey = 'usuario_logueado:' . $nombre;
-        $lock = Cache::lock($lockKey, 10); // Tiempo de espera para adquirir el bloqueo (10 segundos)
+        $lock = Cache::lock($lockKey, 10); 
 
-        // Intentamos adquirir el bloqueo, si no podemos, es porque otro proceso lo tiene
         if ($lock->get()) {
             Cache::forget($lockKey);
-            $lock->release(); // Liberamos el bloqueo
+            $lock->release(); 
         }
     }
 

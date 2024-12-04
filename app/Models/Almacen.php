@@ -15,8 +15,8 @@ class Almacen extends Model
 
     public function tieneEspacio()
     {
-        $totalEstantes = $this->posiciones()->count(); // Total de posiciones ocupadas
-        return $totalEstantes < $this->capacidad; // Verifica si hay espacio para más cajas
+        $totalEstantes = $this->posiciones()->count();
+        return $totalEstantes < $this->capacidad;
     }
 
     public function verificarCapacidadPosicion($estante, $division, $subdivision)
@@ -26,6 +26,6 @@ class Almacen extends Model
             ->where('division', $division)
             ->where('subdivision', $subdivision)
             ->lockForUpdate()
-            ->exists(); // Verifica si ya existe una posición con la misma configuración
+            ->exists();
     }
 }

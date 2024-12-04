@@ -45,7 +45,6 @@ class Hectarea extends Model
 
     public static function obtenerHectareaDeUsuario($id, $userId)
     {
-        // Obtiene la hectárea asegurando que pertenece al usuario autenticado.
         return self::where('id', $id)->where('id_jefe_cuadrilla', $userId)->first();
     }
 
@@ -55,12 +54,12 @@ class Hectarea extends Model
 
         if ($tipo) {
             if ($tipo == 'autorizada') {
-                $query->whereNotNull('fecha_recoleccion');  // Filtrar por fecha_recoleccion no null (autorizada)
+                $query->whereNotNull('fecha_recoleccion');
             } elseif ($tipo == 'no_autorizada') {
-                $query->whereNull('fecha_recoleccion');  // Filtrar por fecha_recoleccion null (no autorizada)
+                $query->whereNull('fecha_recoleccion');
             }
         }
 
-        return $query->get();  // Retornar las hectáreas filtradas
+        return $query->get();
     }
 }

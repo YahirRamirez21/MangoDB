@@ -44,10 +44,9 @@
     </main>
 
     <script>
-        // Enviar formulario automáticamente cuando se cambia el radio button
         document.querySelectorAll('input[name="tipo"]').forEach(function(input) {
             input.addEventListener('change', function() {
-                this.form.submit(); // Envía el formulario
+                this.form.submit();
             });
         });
     </script>

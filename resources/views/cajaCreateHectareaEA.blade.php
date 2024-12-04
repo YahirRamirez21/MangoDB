@@ -13,7 +13,6 @@
     <main>
         <section class="formulario">
             <h2>Etiqueta</h2>
-            <!-- Solo un formulario para todos los campos y el botón -->
             <form action="{{ route('hectareas.registrarCaja') }}" method="POST">
                 @csrf
                 <div class="campo">

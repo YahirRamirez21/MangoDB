@@ -14,8 +14,8 @@ class ControladorJefeCuadrilla extends Controller
     {
         $usuario = Auth::user();
         if ($usuario) {
-            $hectareas = Hectarea::getByUserId($usuario->id); // Lógica delegada al modelo
-            return view('inicioJC', compact('hectareas')); // Pasar hectáreas a la vista
+            $hectareas = Hectarea::getByUserId($usuario->id); 
+            return view('inicioJC', compact('hectareas')); 
         }
 
         return redirect()->route('login')->with('error', 'Usuario no autenticado');
@@ -25,23 +25,19 @@ class ControladorJefeCuadrilla extends Controller
     {
         $usuario = Auth::user();
         if ($usuario) {
-            // Obtiene la hectárea y valida que pertenezca al usuario autenticado.
             $hectarea = Hectarea::obtenerHectareaDeUsuario($id, $usuario->id);
 
             if (!$hectarea) {
                 return redirect()->route('hectareas.index')->with('error', 'No tienes permiso para acceder a esta hectárea');
             }
 
-            // Filtrar hectáreas autorizadas o no autorizadas
             $tipo = $hectarea->fecha_recoleccion ? 'autorizada' : 'no_autorizada';
             $hectareasTipo = Hectarea::filtrarPorTipo($tipo, $usuario->id);
 
-            // Obtener el índice de la hectárea actual dentro del arreglo de hectáreas filtradas
             $currentIndex = $hectareasTipo->search(function ($item) use ($id) {
                 return $item->id == $id;
             });
 
-            // Pasar la hectárea actual y las hectáreas filtradas a la vista
             return view('infoHectareaJC', compact('hectarea', 'hectareasTipo', 'tipo', 'currentIndex'));
 
             return view('infoHectareaJC', compact('hectarea'));
@@ -82,13 +78,12 @@ class ControladorJefeCuadrilla extends Controller
                 $caja->fecha_cosecha = $fecha_recoleccion;
                 $cajaCreadaBD = Caja::registrarCaja($caja);
                 if ($cajaCreadaBD) {
-                    // Devolver la misma vista con los datos actualizados
+                    
                     return view('cajaCreateHectareaEA', [
                         'hectarea_id' => $id_hectarea,
                         'cajaCreadaBD' => $caja
                     ])->with('success', 'Caja creada con éxito.');
                 }
-
                 return view('cajaCreateHectareaEA', [
                     'hectarea_id' => $id_hectarea
                 ])->with('error', 'No se pudo crear la caja. Por favor, verifica los datos.');
@@ -100,13 +95,8 @@ class ControladorJefeCuadrilla extends Controller
     {
         $usuario = Auth::user();
         if ($usuario) {
-            // Obtener el tipo seleccionado
             $tipo = $request->input('tipo');
-
-            // Filtrar las hectáreas usando el modelo
             $hectareas = Hectarea::filtrarPorTipo($tipo, $usuario->id);
-
-            // Devolver la vista con las hectáreas filtradas
             return view('inicioJC', compact('hectareas'));
         }
 
