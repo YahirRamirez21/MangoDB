@@ -8,14 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ControladorLogin extends Controller
 {
-     // Inyectamos el modelo Usuario
-     protected $usuario;
-
-     public function __construct(Usuario $usuario)
-     {
-         $this->usuario = $usuario;
-     }
-
     public function vistaLogin()
     {
         return view('login');
@@ -31,15 +23,15 @@ class ControladorLogin extends Controller
         ]);
 
         // Verificar si el usuario ya está logueado en otra sesión
-        if ($this->usuario->estaLogueadoEnOtraSesion($request->input('nombre'))) {
+        if (Usuario::estaLogueadoEnOtraSesion($request->input('nombre'))) {
             return back()->withErrors(['nombre' => 'Este usuario ya está logueado en otra sesión.']);
         }
 
         // Intentar autenticación
         if (Auth::attempt($request->only('nombre', 'password'), $request->filled('remember'))) {
             // Marcar al usuario como logueado usando caché
-            $this->usuario->marcarComoLogueado(Auth::user()->nombre);
-            
+            Usuario::marcarComoLogueado(Auth::user()->nombre);
+
             $usuarioLogeado = Auth::user();
 
             // Redirigir según el rol del usuario
@@ -63,7 +55,7 @@ class ControladorLogin extends Controller
     public function logout(Request $request)
     {
         // Eliminar la clave de caché cuando el usuario se desloguea
-        $this->usuario->eliminarSesion(Auth::user()->nombre);
+        Usuario::eliminarSesion(Auth::user()->nombre);
 
         // Desloguear al usuario
         Auth::logout();
