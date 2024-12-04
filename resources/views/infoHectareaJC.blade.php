@@ -36,7 +36,7 @@
                 @else
                     <a href="#" class="boton-subespacio disabled">Anterior</a>
                 @endif
-                
+
                 @if(isset($hectareasTipo[$currentIndex + 1]))
                     <a href="{{ route('hectareas.info', $hectareasTipo[$currentIndex + 1]->id) }}" class="boton-subespacio">Siguiente</a>
                 @else
