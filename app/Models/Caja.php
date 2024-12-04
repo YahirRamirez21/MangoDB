@@ -27,6 +27,12 @@ class Caja extends Model
         return $this->hasMany(Posicion::class, 'id_caja');
     }
 
+    public function registrarCaja()
+    {
+        $this->save();
+        return $this;
+    }
+
     public function findById($id)
     {
         return $this->with('posiciones')->find($id);

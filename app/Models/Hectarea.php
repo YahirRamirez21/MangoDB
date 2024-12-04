@@ -7,7 +7,6 @@ use Carbon\Carbon;
 
 class Hectarea extends Model
 {
-
     protected $table = 'hectareas';
     protected $fillable = ['estado', 'id_jefe_cuadrilla', 'renta', 'porcentaje_general'];
     public $timestamps = false;
@@ -27,30 +26,32 @@ class Hectarea extends Model
         return $this->hasMany(Caja::class, 'id_hectarea');
     }
 
-    public static function getByUserId($userId)
+    // Métodos no estáticos
+
+    public function getByUserId($userId)
     {
-        return self::where('id_jefe_cuadrilla', $userId)->get();
+        return $this->where('id_jefe_cuadrilla', $userId)->get();
     }
 
-    public static function obtenerHectarea($id)
+    public function obtenerHectarea($id)
     {
-        return self::find($id);
+        return $this->find($id);
     }
 
-    public static function cambiarEstado($hectarea)
+    public function cambiarEstado()
     {
-        $hectarea->fecha_recoleccion = Carbon::now();
-        $hectarea->save();
+        $this->fecha_recoleccion = Carbon::now();
+        $this->save();
     }
 
-    public static function obtenerHectareaDeUsuario($id, $userId)
+    public function obtenerHectareaDeUsuario($id, $userId)
     {
-        return self::where('id', $id)->where('id_jefe_cuadrilla', $userId)->first();
+        return $this->where('id', $id)->where('id_jefe_cuadrilla', $userId)->first();
     }
 
-    public static function filtrarPorTipo($tipo, $userId)
+    public function filtrarPorTipo($tipo, $userId)
     {
-        $query = self::where('id_jefe_cuadrilla', $userId);
+        $query = $this->where('id_jefe_cuadrilla', $userId);
 
         if ($tipo) {
             if ($tipo == 'autorizada') {
