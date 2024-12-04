@@ -25,6 +25,7 @@ class Almacen extends Model
             ->where('estante', $estante)
             ->where('division', $division)
             ->where('subdivision', $subdivision)
+            ->lockForUpdate()
             ->exists(); // Verifica si ya existe una posición con la misma configuración
     }
 }
