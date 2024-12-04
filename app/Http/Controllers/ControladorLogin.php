@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ControladorLogin extends Controller
 {
+     // Inyectamos el modelo Usuario
+     protected $usuario;
+
+     public function __construct(Usuario $usuario)
+     {
+         $this->usuario = $usuario;
+     }
+
     public function vistaLogin()
     {
         return view('login');
@@ -15,6 +23,7 @@ class ControladorLogin extends Controller
 
     public function login(Request $request)
     {
+
         // Validar entrada
         $request->validate([
             'nombre' => 'required|string',
@@ -22,19 +31,19 @@ class ControladorLogin extends Controller
         ]);
 
         // Verificar si el usuario ya está logueado en otra sesión
-        if (Usuario::estaLogueadoEnOtraSesion($request->input('nombre'))) {
+        if ($this->usuario->estaLogueadoEnOtraSesion($request->input('nombre'))) {
             return back()->withErrors(['nombre' => 'Este usuario ya está logueado en otra sesión.']);
         }
 
         // Intentar autenticación
         if (Auth::attempt($request->only('nombre', 'password'), $request->filled('remember'))) {
             // Marcar al usuario como logueado usando caché
-            Usuario::marcarComoLogueado(Auth::user()->nombre);
+            $this->usuario->marcarComoLogueado(Auth::user()->nombre);
             
-            $usuario = Auth::user();
+            $usuarioLogeado = Auth::user();
 
             // Redirigir según el rol del usuario
-            return match ($usuario->rol) {
+            return match ($usuarioLogeado->rol) {
                 'Jefe de Cuadrilla' => redirect('/inicioHectarea'),
                 'Encargado de Almacen' => redirect('/inicioAlmacen'),
                 default => $this->logoutInvalidoRol(),
@@ -54,7 +63,7 @@ class ControladorLogin extends Controller
     public function logout(Request $request)
     {
         // Eliminar la clave de caché cuando el usuario se desloguea
-        Usuario::eliminarSesion(Auth::user()->nombre);
+        $this->usuario->eliminarSesion(Auth::user()->nombre);
 
         // Desloguear al usuario
         Auth::logout();

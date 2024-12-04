@@ -37,7 +37,7 @@ class Usuario extends Authenticatable
      *
      * @return bool
      */
-    public static function estaLogueadoEnOtraSesion($nombre)
+    public  function estaLogueadoEnOtraSesion($nombre)
     {
         // Usamos un bloqueo para prevenir la concurrencia
         $lockKey = 'usuario_logueado:' . $nombre;
@@ -57,7 +57,7 @@ class Usuario extends Authenticatable
     /**
      * Marca al usuario como logueado, usando caché.
      */
-    public static function marcarComoLogueado($nombre)
+    public function marcarComoLogueado($nombre)
     {
         $lockKey = 'usuario_logueado:' . $nombre;
         $lock = Cache::lock($lockKey, 10); // Tiempo de espera para adquirir el bloqueo (10 segundos)
@@ -72,7 +72,7 @@ class Usuario extends Authenticatable
     /**
      * Elimina el estado de sesión del usuario en la caché.
      */
-    public static function eliminarSesion($nombre)
+    public function eliminarSesion($nombre)
     {
         $lockKey = 'usuario_logueado:' . $nombre;
         $lock = Cache::lock($lockKey, 10); // Tiempo de espera para adquirir el bloqueo (10 segundos)
