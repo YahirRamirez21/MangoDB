@@ -83,7 +83,7 @@ main {
 
 .formulario {
     background-color: white;
-    padding: 25px 80px;
+    padding: 25px 68px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -97,9 +97,11 @@ main {
     color: #15491a; 
     font-size: 22px;
     text-align: center;
+    padding: 0px 73px;
 }
 
 .campo {
+    margin-right: 0;
     margin-bottom: 15px;
 }
 
@@ -112,10 +114,11 @@ main {
 
 .campo input {
     width: 100%;
-    padding: 10px;
+    padding: 10px 60px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    text-align: center;
 }
 
 .campo input[readonly] {
@@ -154,4 +157,21 @@ main {
 .boton:active {
     background-color: #388E3C; 
     transform: scale(1);
+}
+
+.boton:disabled {
+    background-color: #DAD7CD;
+    color: #15491A;
+    cursor:not-allowed;
+}
+
+.alert{
+    margin: 0 auto;
+    background-color: white;
+    max-width: 450px;
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: center;
 }
