@@ -34,7 +34,8 @@
     <main>
         <div class="content">
             <section class="formulario">
-                <input type="text" name="tipo" value="{{ $tipo }}">
+                <input class="tipo-calidad" type="text" name="tipo" value="{{ $tipo }}">
+                <h2>Almacén de {{ $tipo }}</h2>
                 <h2>Etiqueta</h2>
 
                 @if (isset($caja))
