@@ -21,10 +21,7 @@ Route::middleware(['auth'])->group(function () {
         return view('inicioJC');
     });
 
-    Route::post('/logout', function () {
-        Auth::logout();
-        return redirect('/login');
-    })->name('logout');
+    Route::post('/logout', [ControladorLogin::class, 'logout'])->name('logout');
 });
 
 Route::get('/ingresoCajasAlmacen', function () {

@@ -8,10 +8,7 @@
     @vite('resources/css/styleinicioEA.css')
 </head>
 <body>
-    <div class="navbar">
-        <div class="title">MangoDB</div>
-        <button class="logout">Log Out</button>
-    </div>
+    <x-menu/>
     <div class="content">
         <h1>Elija su Almacén</h1>
         <div class="options">
