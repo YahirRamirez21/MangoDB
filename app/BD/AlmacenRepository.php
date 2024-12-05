@@ -1,26 +1,34 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Almacen;
-use Illuminate\Support\Facades\DB;
 
 class AlmacenRepository
 {
-    // Verifica si el almacén tiene espacio
-    public function tieneEspacio(Almacen $almacen)
+    protected $almacen;
+
+    public function __construct(Almacen $almacen)
     {
-        $totalEstantes = $almacen->posiciones()->count(); 
-        return $totalEstantes < $almacen->capacidad; 
+        $this->almacen = $almacen;
     }
 
-    // Verifica la capacidad de una posición
-    public function verificarCapacidadPosicion(Almacen $almacen, $estante, $division, $subdivision)
+    public function findByTipo($tipo)
     {
-        return !DB::table('posiciones')
-            ->where('id_almacen', $almacen->id)
+        return $this->almacen->where('tipo', $tipo)->first();
+    }
+
+    public function verificarCapacidadPosicion($almacen, $estante, $division, $subdivision)
+    {
+        return !$almacen->posiciones()
             ->where('estante', $estante)
             ->where('division', $division)
             ->where('subdivision', $subdivision)
-            ->exists(); 
+            ->exists();
+    }
+
+    public function tieneEspacio($almacen)
+    {
+        return $almacen->posiciones()->count() < $almacen->capacidad;
     }
 }

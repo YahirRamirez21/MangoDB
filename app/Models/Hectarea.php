@@ -3,13 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use App\Repositories\HectareaRepository;
 
 class Hectarea extends Model
 {
     protected $table = 'hectareas';
     protected $fillable = ['estado', 'id_jefe_cuadrilla', 'renta', 'porcentaje_general'];
     public $timestamps = false;
+
+    protected $repository;
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->repository = new HectareaRepository($this);
+    }
 
     public function jefeCuadrilla()
     {
@@ -28,37 +36,26 @@ class Hectarea extends Model
 
     public function getByUserId($userId)
     {
-        return $this->where('id_jefe_cuadrilla', $userId)->get();
+        return $this->repository->getByUserId($userId);
     }
 
     public function obtenerHectarea($id)
     {
-        return $this->find($id);
+        return $this->repository->obtenerHectarea($id);
     }
 
     public function cambiarEstado()
     {
-        $this->fecha_recoleccion = Carbon::now();
-        $this->save();
+        $this->repository->cambiarEstado($this);
     }
 
     public function obtenerHectareaDeUsuario($id, $userId)
     {
-        return $this->where('id', $id)->where('id_jefe_cuadrilla', $userId)->first();
+        return $this->repository->obtenerHectareaDeUsuario($id, $userId);
     }
 
     public function filtrarPorTipo($tipo, $userId)
     {
-        $query = $this->where('id_jefe_cuadrilla', $userId);
-
-        if ($tipo) {
-            if ($tipo == 'autorizada') {
-                $query->whereNotNull('fecha_recoleccion');
-            } elseif ($tipo == 'no_autorizada') {
-                $query->whereNull('fecha_recoleccion');
-            }
-        }
-
-        return $query->get();
+        return $this->repository->filtrarPorTipo($tipo, $userId);
     }
 }
