@@ -11,13 +11,12 @@ class CajaRepository
     {
         $this->caja = $caja;
     }
-    // Obtener una caja por su ID con sus posiciones
+    
     public function obtenerPorId($id)
     {
         return Caja::with('posiciones')->find($id);
     }
 
-    // Registrar una caja
     public function registrarCaja(Caja $caja)
     {
         $caja->fecha_ingreso_almacen = now();

@@ -30,12 +30,27 @@ header {
 }
 
 .navbar .logo {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
+}
+
+.contenedor-close .close{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.contenedor-close span {
+    font-size: 16px;
+}
+
+.icono {
+    width: 30px;
 }
 
 .navbar .logout {
-    width: 100px;
+    width: 170px;
     text-align: center;
     padding: 5px 10px;
     border: 2px solid white;
@@ -133,4 +148,9 @@ footer {
     position: fixed;
     width: 100%;
     bottom: 0;
+}
+
+.close {
+    display: flex;
+
 }
