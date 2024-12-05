@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\BD\CajaRepository;
 use Illuminate\Database\Eloquent\Model;
 
 class Caja extends Model
@@ -16,6 +17,13 @@ class Caja extends Model
         'kilogramos',
         'fecha_recoleccion',
     ];
+    protected $repository;
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->repository = new CajaRepository($this);
+    }
 
     public function hectarea()
     {
@@ -35,12 +43,11 @@ class Caja extends Model
 
     public function findById($id)
     {
-        return $this->with('posiciones')->find($id);
+        return $this->repository->obtenerPorId($id);
     }
 
     public function registrarFechaIngreso()
     {
-        $this->fecha_ingreso_almacen = now();
-        $this->save();
+        return $this->repository->registrarCaja($this);
     }
 }

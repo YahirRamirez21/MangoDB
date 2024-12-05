@@ -6,6 +6,7 @@ use App\BD\PosicionRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Caja;
+use App\Models\Almacen;
 
 class Posicion extends Model
 {
@@ -20,11 +21,17 @@ class Posicion extends Model
         'division',
         'subdivision',
     ];
-    private $repositorio;
 
-    public function __construct(PosicionRepository $repositorio)
+    protected $repository;
+
+    public function __construct(array $attributes = [])
     {
-        $this->repositorio = $repositorio;
+        parent::__construct($attributes);
+        $this->repository = new PosicionRepository($this);
+    }
+
+    public function _contruct(){
+
     }
 
     public function caja()
@@ -39,15 +46,15 @@ class Posicion extends Model
 
     public function findByCajaAndAlmacen($cajaId, $almacenId)
     {
-        return $repositorio->findByCajaAndAlmacen($cajaId, $almacenId);
+        return $this->repository->findByCajaAndAlmacen($cajaId, $almacenId);
     }
 
     public function asignarNueva(Caja $caja, $tipo)
     {
-        return $repositorio->asignarNueva($caja, $tipo);
+        return $this->repository->asignarNueva($caja, $tipo);
     }
 
-    private function crearPosicionDisponible(Almacen $almacen, Caja $caja)
+    public function crearPosicionDisponible(Almacen $almacen, Caja $caja)
     {
         $estante = 1;
         $division = 1;
@@ -68,23 +75,23 @@ class Posicion extends Model
             }
         }
 
-        $posicionExistente =  $repositorio->buscarPosicionExistente($almacen, $estante, $division, $subdivision);
+        $posicionExistente =  $this->repository->buscarPosicionExistente($almacen, $estante, $division, $subdivision);
 
         if ($posicionExistente) {
             throw new \Exception('La posición ya fue asignada en otro proceso. Intente de nuevo.');
         }
 
-        $posicion =  $repositorio->crearObjetoPosicion($caja, $estante, $division, $subdivision, $almacen);
+        $posicion =  $this->repository->crearObjetoPosicion($caja, $estante, $division, $subdivision, $almacen);
         return $posicion;
     }
 
-    private function reasignarPorPEPS(Almacen $almacen, Caja $caja)
+    public function reasignarPorPEPS(Almacen $almacen, Caja $caja)
     {
-        return $repositorio->reasignarPorPEPS($almacen, $caja);
+        return $this->repository->reasignarPorPEPS($almacen, $caja);
     }
 
-    private function existePorCaja($cajaId)
+    public function existePorCaja($cajaId)
     {
-        return $repositorio->existeCaja($cajaId);
+        return $this->repository->existeCaja($cajaId);
     }
 }
