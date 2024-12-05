@@ -11,7 +11,7 @@
 
 <body>
     
-<x-menu />
+    <x-menu link="{{ url('/inicioHectarea') }}"/>
 
 
     <main>

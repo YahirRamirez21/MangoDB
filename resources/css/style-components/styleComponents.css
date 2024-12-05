@@ -17,24 +17,41 @@ header {
     z-index: 1000; 
     background-color: #15491a; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    width: 100%; 
+    width: 100%;
+}
+
+br{
+    line-height: 20px;
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 30px;
+    padding: 10px 30px 10px 50px;
     color: white;
     font-weight: bold;
+    max-height: 130px;
 }
 
-.navbar .logo {
-    width: 60px;
-    height: 60px;
+#inicio {
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+    padding-right: 70%;
+    text-decoration: none;
 }
 
-.contenedor-close .close{
+.logo {
+    width: 100px;
+    height: 100px;
+}
+
+.contenedor-close {
+    margin-left: auto;
+}
+
+ .close{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,6 +60,7 @@ header {
 
 .contenedor-close span {
     font-size: 16px;
+    float: right;
 }
 
 .icono {
