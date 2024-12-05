@@ -22,7 +22,7 @@
         <div class="search-container">
             <div class="search-box">
                 <form action="{{ url('/ingresoCajasAlmacen/' . $tipo) }}" method="GET">
-                    <label for="box-id">Ingresa ID de la Caja:</label>
+                    <label fid="label-id" for="box-id">Ingresa ID de la Caja:</label>
                     <input type="text" id="box-id" name="box-id" placeholder="Buscar caja"value={{ request()->input('box-id') }}>
                     <button type="submit" name="action" value="buscar" class="boton">Buscar</button>
                 </form>
