@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\BD;
 
 use App\Models\Posicion;
 use App\Models\Almacen;
@@ -9,9 +9,16 @@ use Illuminate\Support\Facades\DB;
 
 class PosicionRepository
 {
+    protected $posicion;
+
+    public function __construct(Posicion $posicion)
+    {
+        $this->posicion = $posicion;
+    }
+
     public function findByCajaAndAlmacen($cajaId, $almacenId)
     {
-        return Posicion::where('id_caja', $cajaId)
+        return $this->posicion->where('id_caja', $cajaId)
             ->where('id_almacen', $almacenId)
             ->first();
     }
@@ -19,18 +26,19 @@ class PosicionRepository
     public function asignarNueva(Caja $caja, $tipo)
     {
         return DB::transaction(function () use ($caja, $tipo) {
-            $almacen = Almacen::where('tipo', $tipo)->firstOrFail();
+            $respositorioAlmacen = new Almacen();
+            $almacen = $respositorioAlmacen->where('tipo', $tipo)->firstOrFail();
 
             if (!$almacen->tieneEspacio()) {
                 return $this->reasignarPorPEPS($almacen, $caja);
             }
 
-            return $this->crearPosicionDisponible($almacen, $caja);
+            return $this->posicion->crearPosicionDisponible($almacen, $caja);
         });
     }
 
-    public function buscarPosicionExistente(Almacen $almacen, $estante, $division, $subidivision) {
-        return Posicion::where('id_almacen', $almacen->id)
+    public function buscarPosicionExistente(Almacen $almacen, $estante, $division, $subdivision) {
+        return $this->posicion->where('id_almacen', $almacen->id)
         ->where('estante', $estante)
         ->where('division', $division)
         ->where('subdivision', $subdivision)
@@ -54,11 +62,11 @@ class PosicionRepository
     {
         return DB::transaction(function () use ($almacen, $caja) {
             $repositorioCaja = new Caja();
-            $cajasOrdenadas = Caja::where('id_almacen', $almacen->id)
+            $cajasOrdenadas = $repositorioCaja->where('id_almacen', $almacen->id)
                 ->orderBy('fecha_ingreso_almacen', 'asc')
                 ->get();
 
-            $posicion = Posicion::where('id_caja', $cajasOrdenadas->first()->id)->first();
+            $posicion = $this->posicion->where('id_caja', $cajasOrdenadas->first()->id)->first();
             $posicion->id_caja = $caja->id;
             $posicion->save();
 
@@ -66,7 +74,7 @@ class PosicionRepository
         });
     }
 
-    public function existeCaja(){
-        return Posicion::where('id_caja', $cajaId)->exists();
+    public function existeCaja($cajaId){
+        return $this->posicion->where('id_caja', $cajaId)->exists();
     }
 }
