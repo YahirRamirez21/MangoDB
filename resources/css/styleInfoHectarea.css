@@ -1,4 +1,4 @@
-/* Contenedor principal de las secciones */
+
 #contenedor {
     display: flex;
     flex-wrap: wrap;
@@ -8,7 +8,6 @@
     margin-top: 20px;
 }
 
-/* Sección de información de la hectárea */
 #sectionInfoHectarea,
 #sectionGraficaHectarea,
 #sectionBotonesHectarea {
@@ -17,15 +16,14 @@
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 30%; /* Aseguramos que todas las cards tengan el mismo tamaño */
-    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño */
+    width: 30%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-/* Efecto de hover para las cards */
 #sectionInfoHectarea:hover,
 #sectionGraficaHectarea:hover,
 #sectionBotonesHectarea:hover {
@@ -33,13 +31,12 @@
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilos del título y párrafos dentro de la card de información */
 #sectionInfoHectarea h2 {
     color: #15491a;
     margin-bottom: 20px;
     font-size: 22px;
     font-weight: bold;
-    text-align: center; /* Centra el texto */
+    text-align: center;
 }
 
 #sectionInfoHectarea p {
@@ -47,10 +44,9 @@
     line-height: 1.6;
     margin-bottom: 15px;
     font-size: 16px;
-    text-align: center; /* Centra el texto */
+    text-align: center;
 }
 
-/* Sección de botones de acción */
 #sectionBotonesHectarea {
     display: flex;
     flex-direction: column;
@@ -59,7 +55,6 @@
     align-items: center;
 }
 
-/* Estilo para los botones dentro de las cards */
 .boton {
     background-color: #15491a;
     color: white;
@@ -79,7 +74,6 @@
     justify-content: center;
 }
 
-/* Estilo de los botones cuando se pasan por encima */
 .boton:hover {
     background-color: #45a049;
     transform: scale(1.05);
@@ -95,12 +89,11 @@
     color: #15491A;
 }
 
-/* Contenedor de los botones de navegación entre hectáreas (fuera de las cards) */
 #navegacion-hectarea {
     width: 100%;
     display: flex;
-    justify-content: center; /* Centra los botones de navegación */
-    margin-top: 30px; /* Añadido margen superior */
+    justify-content: center;
+    margin-top: 30px;
 }
 
 .boton-subespacio {
@@ -126,40 +119,34 @@
     cursor: not-allowed;
 }
 
-/* Estilo del formulario */
 .form {
     width: 100%;
     max-width: 320px;
 }
 
-/* Sección de navegación entre hectáreas (fuera de las cards) */
 #navegacion-hectarea {
     display: flex;
-    justify-content: center; /* Centra los botones de navegación */
-    gap: 20px; /* Añade un espacio entre los botones */
+    justify-content: center;
+    gap: 20px;
 }
 
-/* Título principal */
 #titulo {
-    padding-left: 0;  /* Elimina el padding a la izquierda */
-    padding-right: 0; /* Elimina el padding a la derecha */
+    padding-left: 0;
+    padding-right: 0;
     font-size: 28px;
     color: #15491A;
-    text-align: center; /* Centra el texto */
-    width: 100%; /* Asegura que ocupe todo el ancho */
-    padding-top: 20px; /* Separa el título del borde superior */
+    text-align: center;
+    width: 100%;
+    padding-top: 20px;
 }
-
-
 
 a .boton {
     margin-left: 6%;
 }
 
-/* Estilos para la gráfica */
 #graficaContenedor {
     width: 100%;
-    height: 250px; /* Ajusta el tamaño según sea necesario */
+    height: 250px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -171,11 +158,10 @@ canvas {
     height: 100% !important;
 }
 
-/* Estilos responsivos para pantallas más pequeñas */
 @media (max-width: 768px) {
     #sectionInfoHectarea,
     #sectionGraficaHectarea,
     #sectionBotonesHectarea {
-        width: 100%; /* Las cards ocupan el 100% del ancho en pantallas pequeñas */
+        width: 100%;
     }
 }
