@@ -55,10 +55,7 @@
         @endif
     </main>
 
-    <!-- Pie de Página -->
-    <footer>
-        &copy; {{ date('Y') }} Tu Empresa. Todos los derechos reservados.
-    </footer>
+    <x-footer />
 
     <script>
         document.querySelectorAll('input[name="tipo"]').forEach(function(input) {
