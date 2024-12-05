@@ -9,65 +9,51 @@ use Illuminate\Support\Facades\DB;
 
 class PosicionRepository
 {
-    // Asignar una posición a una caja
-    public function asignarPosicion(Caja $caja)
+    public function findByCajaAndAlmacen($cajaId, $almacenId)
     {
-        return DB::transaction(function () use ($caja) {
-            $tipo = $caja->calidad;
-            $almacen = Almacen::where('tipo', $tipo)->first();
+        return Posicion::where('id_caja', $cajaId)
+            ->where('id_almacen', $almacenId)
+            ->first();
+    }
+
+    public function asignarNueva(Caja $caja, $tipo)
+    {
+        return DB::transaction(function () use ($caja, $tipo) {
+            $almacen = Almacen::where('tipo', $tipo)->firstOrFail();
 
             if (!$almacen->tieneEspacio()) {
-                return $this->asignarPosicionPEPS($almacen, $caja);
+                return $this->reasignarPorPEPS($almacen, $caja);
             }
 
-            $estante = 1;
-            $division = 1;
-            $subdivision = 1;
-
-            // Asignación de posición
-            while (!$almacen->verificarCapacidadPosicion($estante, $division, $subdivision)) {
-                $subdivision++;
-                if ($subdivision > 3) {
-                    $subdivision = 1;
-                    $division++;
-                    if ($division > 3) {
-                        $division = 1;
-                        $estante++;
-                        if ($estante > 3) {
-                            throw new \Exception('No hay espacio suficiente en el almacén.');
-                        }
-                    }
-                }
-            }
-
-            // Verificación final
-            $posicionExistente = Posicion::where('id_almacen', $almacen->id)
-                ->where('estante', $estante)
-                ->where('division', $division)
-                ->where('subdivision', $subdivision)
-                ->lockForUpdate()
-                ->first();
-
-            if ($posicionExistente) {
-                throw new \Exception('La posición ya fue asignada en otro proceso. Intente de nuevo.');
-            }
-
-            $posicion = new Posicion();
-            $posicion->id_caja = $caja->id;
-            $posicion->estante = $estante;
-            $posicion->division = $division;
-            $posicion->subdivision = $subdivision;
-            $posicion->id_almacen = $almacen->id;
-            $posicion->save();
-
-            return $posicion;
+            return $this->crearPosicionDisponible($almacen, $caja);
         });
     }
 
-    // Asignar posición usando el método PEPS
-    public function asignarPosicionPEPS(Almacen $almacen, Caja $caja)
+    public function buscarPosicionExistente(Almacen $almacen, $estante, $division, $subidivision) {
+        return Posicion::where('id_almacen', $almacen->id)
+        ->where('estante', $estante)
+        ->where('division', $division)
+        ->where('subdivision', $subdivision)
+        ->lockForUpdate()
+        ->first();
+    }
+
+    public function crearObjetoPosicion(Caja $caja, $estante, $division, $subdivision, Almacen $almacen ){
+        $posicion = new Posicion();
+        $posicion->id_caja = $caja->id;
+        $posicion->estante = $estante;
+        $posicion->division = $division;
+        $posicion->subdivision = $subdivision;
+        $posicion->id_almacen = $almacen->id;
+        $posicion->save();
+
+        return $posicion;
+    }
+
+    public function reasignarPorPEPS(Almacen $almacen, Caja $caja)
     {
         return DB::transaction(function () use ($almacen, $caja) {
+            $repositorioCaja = new Caja();
             $cajasOrdenadas = Caja::where('id_almacen', $almacen->id)
                 ->orderBy('fecha_ingreso_almacen', 'asc')
                 ->get();
@@ -78,5 +64,9 @@ class PosicionRepository
 
             return $posicion;
         });
+    }
+
+    public function existeCaja(){
+        return Posicion::where('id_caja', $cajaId)->exists();
     }
 }

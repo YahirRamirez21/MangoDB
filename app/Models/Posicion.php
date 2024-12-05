@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\BD\PosicionRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\Caja;
 
 class Posicion extends Model
 {
@@ -18,6 +20,12 @@ class Posicion extends Model
         'division',
         'subdivision',
     ];
+    private $repositorio;
+
+    public function __construct(PosicionRepository $repositorio)
+    {
+        $this->repositorio = $repositorio;
+    }
 
     public function caja()
     {
@@ -29,26 +37,14 @@ class Posicion extends Model
         return $this->belongsTo(Almacen::class, 'id_almacen');
     }
 
-    
     public function findByCajaAndAlmacen($cajaId, $almacenId)
     {
-        return $this->where('id_caja', $cajaId)
-            ->where('id_almacen', $almacenId)
-            ->first();
+        return $repositorio->findByCajaAndAlmacen($cajaId, $almacenId);
     }
 
-    
     public function asignarNueva(Caja $caja, $tipo)
     {
-        return DB::transaction(function () use ($caja, $tipo) {
-            $almacen = Almacen::where('tipo', $tipo)->firstOrFail();
-
-            if (!$almacen->tieneEspacio()) {
-                return $this->reasignarPorPEPS($almacen, $caja);
-            }
-
-            return $this->crearPosicionDisponible($almacen, $caja);
-        });
+        return $repositorio->asignarNueva($caja, $tipo);
     }
 
     private function crearPosicionDisponible(Almacen $almacen, Caja $caja)
@@ -72,45 +68,23 @@ class Posicion extends Model
             }
         }
 
-        $posicionExistente = $this->where('id_almacen', $almacen->id)
-            ->where('estante', $estante)
-            ->where('division', $division)
-            ->where('subdivision', $subdivision)
-            ->lockForUpdate()
-            ->first();
+        $posicionExistente =  $repositorio->buscarPosicionExistente($almacen, $estante, $division, $subdivision);
 
         if ($posicionExistente) {
             throw new \Exception('La posición ya fue asignada en otro proceso. Intente de nuevo.');
         }
 
-        $posicion = new Posicion();
-        $posicion->id_caja = $caja->id;
-        $posicion->estante = $estante;
-        $posicion->division = $division;
-        $posicion->subdivision = $subdivision;
-        $posicion->id_almacen = $almacen->id;
-        $posicion->save();
-
+        $posicion =  $repositorio->crearObjetoPosicion($caja, $estante, $division, $subdivision, $almacen);
         return $posicion;
     }
 
     private function reasignarPorPEPS(Almacen $almacen, Caja $caja)
     {
-        return DB::transaction(function () use ($almacen, $caja) {
-            $cajasOrdenadas = Caja::where('id_almacen', $almacen->id)
-                ->orderBy('fecha_ingreso_almacen', 'asc')
-                ->get();
-
-            $posicion = $this->where('id_caja', $cajasOrdenadas->first()->id)->first();
-            $posicion->id_caja = $caja->id;
-            $posicion->save();
-
-            return $posicion;
-        });
+        return $repositorio->reasignarPorPEPS($almacen, $caja);
     }
 
-    public function existePorCaja($cajaId)
+    private function existePorCaja($cajaId)
     {
-        return $this->where('id_caja', $cajaId)->exists();
+        return $repositorio->existeCaja($cajaId);
     }
 }
