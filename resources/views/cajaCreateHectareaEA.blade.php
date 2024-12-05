@@ -49,6 +49,8 @@
         <button class="botonV" type="button">Volver</button>
     </a>
 
+    <x-footer />
+
     <script>
         function showAlert() {
             event.preventDefault();

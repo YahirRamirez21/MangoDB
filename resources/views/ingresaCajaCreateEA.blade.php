@@ -81,6 +81,8 @@
         </div>
     </main>
 
+    <x-footer />
+
     <script>
         function showAlert() {
             event.preventDefault();

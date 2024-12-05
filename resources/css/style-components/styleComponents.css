@@ -124,3 +124,13 @@ header {
     transform: scale(1);
     background-color: #388E3C;
 }
+
+footer {
+    background-color: #15491a;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
