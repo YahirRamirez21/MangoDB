@@ -1,60 +1,140 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #eef2f3;
     color: #333;
+    line-height: 1.6;
 }
 
-p {
-    font-weight: bold;
-    max-width: 450px;
-    width: 100%;
-    background-color: white;
-    padding: 20px;
+/* Estilos del encabezado */
+header {
+    background-color: #181918;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+.logout-container {
+    margin-left: auto;
+}
+
+.btn-logout {
+    background-color: #d9534f;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
     border-radius: 5px;
-    margin: 0 auto;
+    font-size: 14px;
+    transition: background-color 0.3s;
 }
 
+.btn-logout:hover {
+    background-color: #c9302c;
+}
+
+/* Estilos del pie de página */
+footer {
+    background-color: #15491a;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Estilos del párrafo central */
+main p {
+    font-weight: bold;
+    max-width: 600px;
+    width: 90%;
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1.1em;
+    text-align: center;
+}
+
+/* Lista de Hectáreas */
 .listaHectareas {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
-    padding: 20px;
+    padding: 40px 20px;
 }
 
+/* Tarjeta de Hectárea */
 .itemHectarea {
     background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    width: 250px;
-    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    width: 300px;
+    padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
 }
 
 .itemHectarea:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    background-color: #f3f3f3;
+    transform: translateY(-10px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    background-color: #f0fdf4;
+}
+
+.itemHectarea img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 15px;
 }
 
 .itemHectarea strong {
     display: block;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 16px;
     color: #15491a;
+}
+
+.itemHectarea .info {
+    font-size: 14px;
+    margin-bottom: 15px;
 }
 
 .botonVerInfo {
     display: inline-block;
-    margin-top: 10px;
     background-color: #15491a;
     color: white;
     text-decoration: none;
-    padding: 8px 12px;
+    padding: 10px 16px;
     border-radius: 5px;
     font-size: 14px;
     transition: background-color 0.3s, transform 0.2s;
@@ -65,28 +145,31 @@ p {
     transform: scale(1.05);
 }
 
+/* Contenedor de Inputs */
 .contenedor_inputs {
-    padding-top: 30px;
-    width: 450px;
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 600px;
     margin: 20px auto;
     background-color: white;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .inputs {
     font-size: 18px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .inputs label {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 .inputs input[type="radio"] {
@@ -101,4 +184,29 @@ p {
 
 .inputs input[type="radio"]:checked {
     accent-color: #007bff;
+}
+
+@media (max-width: 768px) {
+    .itemHectarea {
+        width: 90%;
+    }
+
+    main p {
+        width: 95%;
+    }
+
+    .container-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo {
+        width: 100px;
+        margin-bottom: 10px;
+    }
+
+    .logout-container {
+        margin-left: 0;
+        margin-top: 10px;
+    }
 }
