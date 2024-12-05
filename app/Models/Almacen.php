@@ -22,4 +22,14 @@ class Almacen extends Model
     {
         return $this->where('tipo', $tipo)->first();
     }
+
+    public function verificarCapacidadPosicion($estante, $division, $subdivision)
+{
+    // Comprobar si existe una posición ocupada en el almacén con los mismos parámetros
+    return !$this->posiciones()
+        ->where('estante', $estante)
+        ->where('division', $division)
+        ->where('subdivision', $subdivision)
+        ->exists();
+}
 }
