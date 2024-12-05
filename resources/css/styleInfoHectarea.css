@@ -143,11 +143,11 @@
 #titulo {
     padding-left: 0;  /* Elimina el padding a la izquierda */
     padding-right: 0; /* Elimina el padding a la derecha */
-    font-size: 24px;
-    color: #333;
+    font-size: 28px;
+    color: #15491A;
     text-align: center; /* Centra el texto */
     width: 100%; /* Asegura que ocupe todo el ancho */
-    margin: 20px auto 0; /* Separa el título del borde superior */
+    padding-top: 20px; /* Separa el título del borde superior */
 }
 
 

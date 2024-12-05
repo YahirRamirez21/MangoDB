@@ -7,7 +7,7 @@
     @vite(['resources/css/styleinicioEA.css', 'resources/css/style-components/styleComponents.css'])
 </head>
 <body>
-    <x-menu/>
+    <x-menu link="{{ url('/inicioAlmacen') }}"/>
     <div class="content">
         <h1>Elija su Almacén</h1>
         <div class="options">

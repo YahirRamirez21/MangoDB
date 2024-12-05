@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <x-menu />
+    <x-menu link="{{ url('/inicioHectarea') }}"/>
     <main>
         <h2 id="titulo">Información Hectárea</h2>
         <section id="contenedor">

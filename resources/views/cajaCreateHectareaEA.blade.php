@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <x-menu />
+    <x-menu link="{{ url('/inicioHectarea') }}"/>
     <main>
         <section class="formulario">
             <h2>Etiqueta</h2>

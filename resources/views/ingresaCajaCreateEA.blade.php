@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <x-menu />
+    <x-menu link="{{ url('/inicioAlmacen') }}" />
 
 
     <div class="content">
