@@ -31,7 +31,7 @@ Route::get('/ingresoCajasAlmacen', function () {
 Route::get('/informacionHectarea', function () {
     return view('infoHectareaJC');
 });
-Route::get('/ingresoCajasAlmacen/{tipo}', [ControladorEncargadoAlmacen::class, 'mostrarCaja']);
+Route::get('/ingresoCajasAlmacen/{tipo}', [ControladorEncargadoAlmacen::class, 'mostrarCaja'])->name('ingreso.cajas');
 
 Route::post('/ingresoCajasAlmacen/{tipo}', [ControladorEncargadoAlmacen::class, 'registrarCaja']);
 
@@ -51,6 +51,7 @@ Route::post('hectareas/registrarCaja', [ControladorJefeCuadrilla::class, 'regist
 
 Route::get('/hectareas/filtrar', [ControladorJefeCuadrilla::class, 'filtrarHectareas'])->name('hectareas.filtrar');
 
+Route::get('/informacionAlmacen/{tipo}', [ControladorEncargadoAlmacen::class, 'eleccionAlmacen'])->name('almacen.eleccion');
 
 
 

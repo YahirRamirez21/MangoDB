@@ -15,7 +15,7 @@ class AlmacenRepository
 
     public function findByTipo($tipo)
     {
-        return $this->almacen->where('tipo', $tipo)->first();
+        return $this->almacen->whereRaw('REPLACE(tipo, " ", "") = ?', [$tipo])->first();
     }
 
     public function verificarCapacidadPosicion($almacen, $estante, $division, $subdivision)

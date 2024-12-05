@@ -11,11 +11,11 @@
     <div class="content">
         <h1>Elija su Almacén</h1>
         <div class="options">
-            <button class="box" onclick="window.location.href='{{ url('/ingresoCajasAlmacen/Calidad') }}'">
+            <button class="box" onclick="window.location.href='{{ url('/informacionAlmacen/Calidad') }}'">
                 Calidad
                 <img src="{{ asset('img/mango_calidad.png') }}" alt="Calidad" class="btn-img">
             </button>
-            <button class="box" onclick="window.location.href='{{ url('/ingresoCajasAlmacen/NoCalidad') }}'">
+            <button class="box" onclick="window.location.href='{{ url('/informacionAlmacen/NoCalidad') }}'">
                 No Calidad
                 <img src="{{ asset('img/mango_nocalidad.png') }}" alt="No Calidad" class="btn-img">
             </button>
