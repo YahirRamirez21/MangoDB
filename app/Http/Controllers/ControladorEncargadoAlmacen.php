@@ -78,4 +78,10 @@ class ControladorEncargadoAlmacen extends Controller
             'tipo' => $tipo,
         ]);
     }
+
+    public function eleccionAlmacen(Request $request, $tipo){
+        $almacen = $this->almacen->findByTipo($tipo);
+        return view('infoAlmacenEA', compact('tipo','almacen'));
+    }
+
 }
