@@ -39,15 +39,14 @@ header h1 {
     background-color: #c9302c;
 }
 
-/* Estilos del pie de página */
 footer {
     background-color: #15491a;
     color: white;
     text-align: center;
     padding: 15px 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+    /* Eliminar la posición fija */
+    position: relative;
+    margin-top: 20px; /* Si es necesario, agrega algo de espacio para separarlo del contenido */
 }
 
 /* Estilos del párrafo central */

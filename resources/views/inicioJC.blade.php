@@ -40,7 +40,7 @@
                 @foreach($hectareas as $hectarea)
                     <div class="itemHectarea">
                         <!-- Imagen Representativa -->
-                        <img src="{{ $hectarea->imagen_url ?? 'https://via.placeholder.com/300x150' }}" alt="Imagen de Hectárea">
+                        <img src="{{ $hectarea->imagen_url ?? 'https://img.freepik.com/fotos-premium/hay-muchos-arboles-mango-campo_941033-8221.jpg?w=1060' }}" alt="Imagen de Hectárea">
 
                         <!-- Información de la Hectárea -->
                         <strong>Hectárea ID:</strong> {{ $hectarea->id ?? 'Sin ID' }}
@@ -50,7 +50,7 @@
                         </div>
                         <a class="botonVerInfo" href="{{ route('hectareas.info', $hectarea->id) }}">Ver Información</a>
                     </div>
-                @endforeach
+                @endforeach 
             </div>
         @endif
     </main>
