@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Repositories\AlmacenRepository;
+use App\BD\AlmacenRepository;
 
 class Almacen extends Model
 {

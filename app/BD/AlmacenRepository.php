@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\BD;
 
 use App\Models\Almacen;
 

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Repositories\HectareaRepository;
+use App\BD\HectareaRepository;
 
 class Hectarea extends Model
 {
