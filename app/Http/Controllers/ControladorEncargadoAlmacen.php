@@ -30,7 +30,7 @@ class ControladorEncargadoAlmacen extends Controller
 
             if ($request->has('box-id') && $request->input('box-id') !== '') {
                 $id = $request->input('box-id');
-                $caja = $this->caja->findById($id);
+                $caja = $this->caja->buscarCajaID($id);
 
                 if (!$caja) {
                     return response()->json(['message' => 'Caja no encontrada'], 404);
@@ -40,8 +40,8 @@ class ControladorEncargadoAlmacen extends Controller
                     return redirect()->back()->with('error', 'La caja no pertenece al almacén seleccionado.');
                 }
 
-                $almacen = $this->almacen->findByTipo($tipo);
-                $posicion = $this->posicion->findByCajaAndAlmacen($caja->id, $almacen->id);
+                $almacen = $this->almacen->buscarAlmacenTipo($tipo);
+                $posicion = $this->posicion->buscarPosicionCajaAlmacen($caja->id, $almacen->id);
             }
 
             return view('ingresaCajaCreateEA', compact('caja', 'posicion', 'tipo'));
@@ -54,11 +54,11 @@ class ControladorEncargadoAlmacen extends Controller
     {
         $id = $request->input('box-id');
 
-        if ($this->posicion->existePorCaja($id)) {
+        if ($this->posicion->existeCaja($id)) {
             return response()->json(['message' => 'La caja ya tiene una posición asignada'], 400);
         }
 
-        $caja = $this->caja->findById($id);
+        $caja = $this->caja->buscarCajaID($id);
 
         if (!$caja) {
             return response()->json(['message' => 'Caja no encontrada'], 404);
@@ -70,7 +70,7 @@ class ControladorEncargadoAlmacen extends Controller
 
         $caja->registrarFechaIngreso();
 
-        $posicion = $this->posicion->asignarNueva($caja, $tipo);
+        $posicion = $this->posicion->asignarNuevaPosicion($caja, $tipo);
 
         return view('ingresaCajaCreateEA', [
             'caja' => $caja,
@@ -80,7 +80,7 @@ class ControladorEncargadoAlmacen extends Controller
     }
 
     public function eleccionAlmacen(Request $request, $tipo){
-        $almacen = $this->almacen->findByTipo($tipo);
+        $almacen = $this->almacen->buscarAlmacenTipo($tipo);
         return view('infoAlmacenEA', compact('tipo','almacen'));
     }
 

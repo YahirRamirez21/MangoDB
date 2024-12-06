@@ -13,7 +13,7 @@ class AlmacenRepository
         $this->almacen = $almacen;
     }
 
-    public function findByTipo($tipo)
+    public function buscarAlmacenTipo($tipo)
     {
         return $this->almacen->whereRaw('REPLACE(tipo, " ", "") = ?', [$tipo])->first();
     }

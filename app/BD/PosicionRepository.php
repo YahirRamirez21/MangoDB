@@ -16,22 +16,24 @@ class PosicionRepository
         $this->posicion = $posicion;
     }
 
-    public function findByCajaAndAlmacen($cajaId, $almacenId)
+    public function buscarPosicionCajaAlmacen($cajaId, $almacenId)
     {
         return $this->posicion->where('id_caja', $cajaId)
             ->where('id_almacen', $almacenId)
             ->first();
     }
 
-    public function asignarNueva(Caja $caja, $tipo)
+    public function asignarNuevaPosicion(Caja $caja, $tipo)
     {
         return DB::transaction(function () use ($caja, $tipo) {
             $respositorioAlmacen = new Almacen();
             $almacen = $respositorioAlmacen->where('tipo', $tipo)->firstOrFail();
 
+            /*
             if (!$almacen->tieneEspacio()) {
                 return $this->reasignarPorPEPS($almacen, $caja);
             }
+            */
 
             return $this->posicion->crearPosicionDisponible($almacen, $caja);
         });
@@ -58,6 +60,7 @@ class PosicionRepository
         return $posicion;
     }
 
+    /* 
     public function reasignarPorPEPS(Almacen $almacen, Caja $caja)
     {
         return DB::transaction(function () use ($almacen, $caja) {
@@ -73,7 +76,7 @@ class PosicionRepository
             return $posicion;
         });
     }
-
+    */
     public function existeCaja($cajaId){
         return $this->posicion->where('id_caja', $cajaId)->exists();
     }

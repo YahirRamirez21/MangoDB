@@ -27,9 +27,9 @@ class Almacen extends Model
         return $this->repository->tieneEspacio($this);
     }
 
-    public function findByTipo($tipo)
+    public function buscarAlmacenTipo($tipo)
     {
-        return $this->repository->findByTipo($tipo);
+        return $this->repository->buscarAlmacenTipo($tipo);
     }
 
     public function verificarCapacidadPosicion($estante, $division, $subdivision)

@@ -41,9 +41,9 @@ class Caja extends Model
         return $this;
     }
 
-    public function findById($id)
+    public function buscarCajaID($id)
     {
-        return $this->repository->obtenerPorId($id);
+        return $this->repository->buscarCajaID($id);
     }
 
     public function registrarFechaIngreso()

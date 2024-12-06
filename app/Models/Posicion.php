@@ -44,14 +44,14 @@ class Posicion extends Model
         return $this->belongsTo(Almacen::class, 'id_almacen');
     }
 
-    public function findByCajaAndAlmacen($cajaId, $almacenId)
+    public function buscarPosicionCajaAlmacen($cajaId, $almacenId)
     {
-        return $this->repository->findByCajaAndAlmacen($cajaId, $almacenId);
+        return $this->repository->buscarPosicionCajaAlmacen($cajaId, $almacenId);
     }
 
-    public function asignarNueva(Caja $caja, $tipo)
+    public function asignarNuevaPosicion(Caja $caja, $tipo)
     {
-        return $this->repository->asignarNueva($caja, $tipo);
+        return $this->repository->asignarNuevaPosicion($caja, $tipo);
     }
 
     public function crearPosicionDisponible(Almacen $almacen, Caja $caja)
@@ -85,12 +85,14 @@ class Posicion extends Model
         return $posicion;
     }
 
+    /*
     public function reasignarPorPEPS(Almacen $almacen, Caja $caja)
     {
         return $this->repository->reasignarPorPEPS($almacen, $caja);
     }
+    */
 
-    public function existePorCaja($cajaId)
+    public function existeCaja($cajaId)
     {
         return $this->repository->existeCaja($cajaId);
     }

@@ -14,7 +14,7 @@ class ControladorJefeCuadrilla extends Controller
     {
         $usuario = Auth::user();
         if ($usuario) {
-            $hectareas = (new Hectarea)->getByUserId($usuario->id); 
+            $hectareas = (new Hectarea)->obtenerUsuarioID($usuario->id); 
             return view('inicioJC', compact('hectareas')); 
         }
 
@@ -92,8 +92,7 @@ class ControladorJefeCuadrilla extends Controller
     {
         $usuario = Auth::user();
         if ($usuario) {
-            $tipo = $request->input('tipo');
-            // Crear instancia de Hectarea
+            $tipo = $request->input('tipo'); 
             $hectareas = (new Hectarea)->filtrarPorTipo($tipo, $usuario->id);
             return view('inicioJC', compact('hectareas'));
         }

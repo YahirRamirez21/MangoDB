@@ -12,7 +12,7 @@ class CajaRepository
         $this->caja = $caja;
     }
     
-    public function obtenerPorId($id)
+    public function buscarCajaID($id)
     {
         return Caja::with('posiciones')->find($id);
     }

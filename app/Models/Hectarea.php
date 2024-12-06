@@ -34,9 +34,9 @@ class Hectarea extends Model
         return $this->hasMany(Caja::class, 'id_hectarea');
     }
 
-    public function getByUserId($userId)
+    public function obtenerUsuarioID($userId)
     {
-        return $this->repository->getByUserId($userId);
+        return $this->repository->obtenerUsuarioID($userId);
     }
 
     public function obtenerHectarea($id)

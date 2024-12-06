@@ -13,7 +13,7 @@ class HectareaRepository
         $this->hectarea = $hectarea;
     }
 
-    public function getByUserId($userId)
+    public function obtenerUsuarioID($userId)
     {
         return $this->hectarea->where('id_jefe_cuadrilla', $userId)->get();
     }
