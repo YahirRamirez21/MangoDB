@@ -33,11 +33,11 @@ class ControladorEncargadoAlmacen extends Controller
                 $caja = $this->caja->buscarCajaID($id);
 
                 if (!$caja) {
-                    return response()->json(['message' => 'Caja no encontrada'], 404);
+                    return redirect()->back()->with('error', 'La caja no existe.');
                 }
 
                 if (str_replace(' ', '', $caja->calidad) !== $tipo) {
-                    return redirect()->back()->with('error', 'La caja no pertenece al almacén seleccionado.');
+                    return redirect('/ingresoCajasAlmacen/{$tipo}')->with('error', 'La caja no pertenece al almacén seleccionado.')->with('tipo', $tipo);
                 }
 
                 $almacen = $this->almacen->buscarAlmacenTipo($tipo);
@@ -55,17 +55,17 @@ class ControladorEncargadoAlmacen extends Controller
         $id = $request->input('box-id');
 
         if ($this->posicion->existeCaja($id)) {
-            return response()->json(['message' => 'La caja ya tiene una posición asignada'], 400);
+            return redirect()->back()->with('error', 'La caja ya tiene posicion asignada.');
         }
 
         $caja = $this->caja->buscarCajaID($id);
 
         if (!$caja) {
-            return response()->json(['message' => 'Caja no encontrada'], 404);
+            return redirect()->back()->with('error', 'La caja no existe.');
         }
 
         if (str_replace(' ', '', $caja->calidad) !== $tipo) {
-            return response()->json(['message' => 'La caja no pertenece al almacén seleccionado'], 400);
+            return redirect('/ingresoCajasAlmacen/{$tipo}')->with('error', 'La caja no pertenece al almacén seleccionado.');
         }
 
         $caja->registrarFechaIngreso();

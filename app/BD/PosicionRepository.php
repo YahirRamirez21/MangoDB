@@ -27,7 +27,7 @@ class PosicionRepository
     {
         return DB::transaction(function () use ($caja, $tipo) {
             $respositorioAlmacen = new Almacen();
-            $almacen = $respositorioAlmacen->where('tipo', $tipo)->firstOrFail();
+            $almacen = $respositorioAlmacen->whereRaw('REPLACE(tipo, " ", "") = ?', [$tipo])->firstOrFail();
 
             return $this->posicion->crearPosicionDisponible($almacen, $caja);
         });
