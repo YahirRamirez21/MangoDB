@@ -55,35 +55,32 @@ class Posicion extends Model
     }
 
     public function crearPosicionDisponible(Almacen $almacen, Caja $caja)
-    {
-        $estante = 1;
-        $division = 1;
-        $subdivision = 1;
+{
+    $estante = 1;
+    $division = 1;
+    $subdivision = 1;
 
-        while (!$almacen->verificarCapacidadPosicion($estante, $division, $subdivision)) {
-            $subdivision++;
-            if ($subdivision > 3) {
-                $subdivision = 1;
-                $division++;
-                if ($division > 3) {
-                    $division = 1;
-                    $estante++;
-                    if ($estante > 3) {
-                        throw new \Exception('No hay espacio suficiente en el almacén.');
-                    }
+    // Buscar la primera posición disponible en el almacén
+    while (!$almacen->verificarCapacidadPosicion($estante, $division, $subdivision)) {
+        $subdivision++;
+        if ($subdivision > 3) {
+            $subdivision = 1;
+            $division++;
+            if ($division > 3) {
+                $division = 1;
+                $estante++;
+                if ($estante > 3) {
+                    throw new \Exception('No hay espacio suficiente en el almacén.');
                 }
             }
         }
-
-        $posicionExistente =  $this->repository->buscarPosicionExistente($almacen, $estante, $division, $subdivision);
-
-        if ($posicionExistente) {
-            throw new \Exception('La posición ya fue asignada en otro proceso. Intente de nuevo.');
-        }
-
-        $posicion =  $this->repository->crearObjetoPosicion($caja, $estante, $division, $subdivision, $almacen);
-        return $posicion;
     }
+
+    // Llamamos al repositorio para crear la nueva posición
+    $posicion = $this->repository->crearObjetoPosicion($almacen, $caja, $estante, $division, $subdivision);
+
+    return $posicion;
+}
 
     /*
     public function reasignarPorPEPS(Almacen $almacen, Caja $caja)

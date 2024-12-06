@@ -48,16 +48,22 @@ class PosicionRepository
         ->first();
     }
 
-    public function crearObjetoPosicion(Caja $caja, $estante, $division, $subdivision, Almacen $almacen ){
-        $posicion = new Posicion();
-        $posicion->id_caja = $caja->id;
-        $posicion->estante = $estante;
-        $posicion->division = $division;
-        $posicion->subdivision = $subdivision;
-        $posicion->id_almacen = $almacen->id;
-        $posicion->save();
+    public function crearObjetoPosicion(Almacen $almacen, Caja $caja, $estante, $division, $subdivision)
+    {
+        return DB::transaction(function () use ($almacen, $caja, $estante, $division, $subdivision) {
+            $posicion = new Posicion();
+            $posicion->id_caja = $caja->id;
+            $posicion->estante = $estante;
+            $posicion->division = $division;
+            $posicion->subdivision = $subdivision;
+            $posicion->id_almacen = $almacen->id;
 
-        return $posicion;
+            $posicion->lockForUpdate();
+    
+            $posicion->save();
+    
+            return $posicion;
+        });
     }
 
     /* 
