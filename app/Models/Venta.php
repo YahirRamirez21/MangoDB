@@ -8,6 +8,7 @@ class Venta extends Model
 {
 
     protected $table = 'ventas';
+    public $timestamps = false;  // Esto desactiva el manejo automático de created_at y updated_at
 
     public function encargadoVenta()
     {
