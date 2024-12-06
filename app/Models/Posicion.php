@@ -60,7 +60,6 @@ class Posicion extends Model
     $division = 1;
     $subdivision = 1;
 
-    // Buscar la primera posición disponible en el almacén
     while (!$almacen->verificarCapacidadPosicion($estante, $division, $subdivision)) {
         $subdivision++;
         if ($subdivision > 3) {
@@ -76,18 +75,10 @@ class Posicion extends Model
         }
     }
 
-    // Llamamos al repositorio para crear la nueva posición
     $posicion = $this->repository->crearObjetoPosicion($almacen, $caja, $estante, $division, $subdivision);
 
     return $posicion;
 }
-
-    /*
-    public function reasignarPorPEPS(Almacen $almacen, Caja $caja)
-    {
-        return $this->repository->reasignarPorPEPS($almacen, $caja);
-    }
-    */
 
     public function existeCaja($cajaId)
     {

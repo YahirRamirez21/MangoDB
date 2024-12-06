@@ -29,12 +29,6 @@ class PosicionRepository
             $respositorioAlmacen = new Almacen();
             $almacen = $respositorioAlmacen->where('tipo', $tipo)->firstOrFail();
 
-            /*
-            if (!$almacen->tieneEspacio()) {
-                return $this->reasignarPorPEPS($almacen, $caja);
-            }
-            */
-
             return $this->posicion->crearPosicionDisponible($almacen, $caja);
         });
     }
@@ -66,23 +60,6 @@ class PosicionRepository
         });
     }
 
-    /* 
-    public function reasignarPorPEPS(Almacen $almacen, Caja $caja)
-    {
-        return DB::transaction(function () use ($almacen, $caja) {
-            $repositorioCaja = new Caja();
-            $cajasOrdenadas = $repositorioCaja->where('id_almacen', $almacen->id)
-                ->orderBy('fecha_ingreso_almacen', 'asc')
-                ->get();
-
-            $posicion = $this->posicion->where('id_caja', $cajasOrdenadas->first()->id)->first();
-            $posicion->id_caja = $caja->id;
-            $posicion->save();
-
-            return $posicion;
-        });
-    }
-    */
     public function existeCaja($cajaId){
         return $this->posicion->where('id_caja', $cajaId)->exists();
     }
