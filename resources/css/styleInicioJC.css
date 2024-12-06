@@ -62,6 +62,13 @@ main p {
     font-size: 1.1em;
     text-align: center;
 }
+.autorizar{ 
+    width: 20px;
+}
+
+.no_autorizar {
+    width: 20px;
+}
 
 /* Lista de Hectáreas */
 .listaHectareas {
