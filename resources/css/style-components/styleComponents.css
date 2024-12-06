@@ -40,6 +40,13 @@ br{
     font-weight: bold;
     padding-right: 70%;
     text-decoration: none;
+    display: flex;
+    gap: 10px;
+}
+
+.home {
+    width: 30px;
+    margin-bottom: 7px;
 }
 
 .logo {
