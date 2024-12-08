@@ -65,14 +65,52 @@ class Posicion extends Model
     public function crearPosicionDisponible(Almacen $almacen, Caja $caja)
     {
 
-        $posicion = $this->repository->buscarPrimeraPosicionVaciaOrdenada($almacen);
 
-        if ($posicion) {
+        $posicionUltimaCaja = $this->repository->buscarPrimeraPosicionVaciaOrdenada($almacen);
+        print_r($posicionUltimaCaja);
+        if ($posicionUltimaCaja) {
+            // Crear la siguiente posición
+            // Intentamos incrementar la subdivisión primero
+            $nuevaPosicion = Posicion::where('id_almacen', $posicionUltimaCaja->id_almacen)
+                ->where('estante', $posicionUltimaCaja->estante)
+                ->where('division', $posicionUltimaCaja->division)
+                ->where('subdivision', $posicionUltimaCaja->subdivision + 1) // Incrementamos la subdivisión
+                ->first();
 
-            $this->repository->crearObjetoPosicion($posicion, $caja->id);
-            
-            return $posicion;
+            // Si no encontramos una posición disponible con la suma de 1 a la subdivisión, intentamos incrementar la división
+            if (!$nuevaPosicion) {
+                $nuevaPosicion = Posicion::where('id_almacen', $almacen->id)
+                    ->where('estante', $posicionUltimaCaja->estante)
+                    ->where('division', $posicionUltimaCaja->division + 1) // Incrementamos la división
+                    ->where('subdivision', 1) // Empezamos de nuevo en la primera subdivisión
+                    ->first();
+            }
+
+            // Si no encontramos una posición disponible con la suma de 1 a la división, intentamos incrementar el estante
+            if (!$nuevaPosicion) {
+                $nuevaPosicion = Posicion::where('id_almacen', $almacen->id)
+                    ->where('estante', $posicionUltimaCaja->estante + 1) // Incrementamos el estante
+                    ->where('division', 1) // Empezamos de nuevo en la primera división
+                    ->where('subdivision', 1) // Empezamos de nuevo en la primera subdivisión
+                    ->first();
+            }
+
+            $this->repository->crearObjetoPosicion($nuevaPosicion, $caja->id);
+
+            return $nuevaPosicion;
+        }else{
+
+            $posicionUno = new Posicion();
+            $posicionUno->estante = 1;
+            $posicionUno->subdivision = 1;
+            $posicionUno->division = 1;
+            $posicionUno->id_almacen = $almacen->id;
+            //dd($posicionUno);
+            //var_dump($posicionUno);
+            print_r($posicionUno);
+            $this->repository->crearObjetoPosicion($posicionUno, $caja->id);
         }
+
         return null;
     }
 

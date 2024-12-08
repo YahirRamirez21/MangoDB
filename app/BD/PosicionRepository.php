@@ -6,6 +6,7 @@ use App\Models\Posicion;
 use App\Models\Almacen;
 use App\Models\Caja;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 class PosicionRepository
 {
@@ -32,8 +33,17 @@ class PosicionRepository
             return $this->posicion->crearPosicionDisponible($almacen, $caja);
         });
     }
+    public function buscarPrimeraPosicionVaciaOrdenada(Almacen $almacen){
+        return $ultimaCaja = DB::table('posiciones')
+            ->join('cajas', 'posiciones.id_caja', '=', 'cajas.id') // Relaciona posiciones con cajas
+            ->where('posiciones.id_almacen', '=', $almacen->id) // Filtra por el id_almacen
+            //->whereNotNull('posiciones.id_caja') // Asegura que la posición tiene una caja asignada
+            ->orderBy('cajas.fecha_ingreso_almacen', 'desc') // Ordena por la fecha de ingreso, de más reciente a más antiguo
+            ->lockForUpdate()
+            ->first(); // Obtiene el primer registro
+    }
 
-    public function buscarPrimeraPosicionVaciaOrdenada(Almacen $almacen)
+   /*  public function buscarPrimeraPosicionVaciaOrdenada(Almacen $almacen)
     {
         return $this->posicion->where('id_almacen', $almacen->id)
             ->whereNull('id_caja')
@@ -42,23 +52,19 @@ class PosicionRepository
             ->orderBy('subdivision')
             ->lockForUpdate()
             ->first();
-    }
+    } */
 
     public function crearObjetoPosicion($posicion, $idCaja)
     {
-        
-        if ($posicion) {
-            
-            DB::table('posiciones')
+            $posicion = DB::table('posiciones')
                 ->where('id_almacen', $posicion->id_almacen)
                 ->where('estante', $posicion->estante)
                 ->where('division', $posicion->division)
                 ->where('subdivision', $posicion->subdivision)
                 ->update(['id_caja' => $idCaja]);
 
+            return $posicion;
         
-            $posicion->id_caja = $idCaja;
-        }
     }
 
     public function existeCaja($cajaId)
