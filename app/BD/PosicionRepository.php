@@ -33,34 +33,36 @@ class PosicionRepository
         });
     }
 
-    public function buscarPosicionExistente(Almacen $almacen, $estante, $division, $subdivision) {
-        return $this->posicion->where('id_almacen', $almacen->id)
-        ->where('estante', $estante)
-        ->where('division', $division)
-        ->where('subdivision', $subdivision)
-        ->lockForUpdate()
-        ->first();
-    }
-
-    public function crearObjetoPosicion(Almacen $almacen, Caja $caja, $estante, $division, $subdivision)
+    public function buscarPrimeraPosicionVaciaOrdenada(Almacen $almacen)
     {
-        return DB::transaction(function () use ($almacen, $caja, $estante, $division, $subdivision) {
-            $posicion = new Posicion();
-            $posicion->id_caja = $caja->id;
-            $posicion->estante = $estante;
-            $posicion->division = $division;
-            $posicion->subdivision = $subdivision;
-            $posicion->id_almacen = $almacen->id;
-
-            $posicion->lockForUpdate();
-    
-            $posicion->save();
-    
-            return $posicion;
-        });
+        return $this->posicion->where('id_almacen', $almacen->id)
+            ->whereNull('id_caja')
+            ->orderBy('estante')
+            ->orderBy('division')
+            ->orderBy('subdivision')
+            ->lockForUpdate()
+            ->first();
     }
 
-    public function existeCaja($cajaId){
+    public function crearObjetoPosicion($posicion, $idCaja)
+    {
+        
+        if ($posicion) {
+            
+            DB::table('posiciones')
+                ->where('id_almacen', $posicion->id_almacen)
+                ->where('estante', $posicion->estante)
+                ->where('division', $posicion->division)
+                ->where('subdivision', $posicion->subdivision)
+                ->update(['id_caja' => $idCaja]);
+
+        
+            $posicion->id_caja = $idCaja;
+        }
+    }
+
+    public function existeCaja($cajaId)
+    {
         return $this->posicion->where('id_caja', $cajaId)->exists();
     }
 }

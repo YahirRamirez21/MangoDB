@@ -29,10 +29,18 @@ class Posicion extends Model
         parent::__construct($attributes);
         $this->repository = new PosicionRepository($this);
     }
-
-    public function _contruct(){
-
+    // Definir la clave primaria compuesta
+    public function getKeyName()
+    {
+        return null; 
     }
+
+    public function getQualifiedKeyName()
+    {
+        return ['id_almacen', 'estante', 'division', 'subdivision'];
+    }
+
+    public function _contruct() {}
 
     public function caja()
     {
@@ -55,30 +63,18 @@ class Posicion extends Model
     }
 
     public function crearPosicionDisponible(Almacen $almacen, Caja $caja)
-{
-    $estante = 1;
-    $division = 1;
-    $subdivision = 1;
+    {
 
-    while (!$almacen->verificarCapacidadPosicion($estante, $division, $subdivision)) {
-        $subdivision++;
-        if ($subdivision > 3) {
-            $subdivision = 1;
-            $division++;
-            if ($division > 3) {
-                $division = 1;
-                $estante++;
-                if ($estante > 3) {
-                    throw new \Exception('No hay espacio suficiente en el almacén.');
-                }
-            }
+        $posicion = $this->repository->buscarPrimeraPosicionVaciaOrdenada($almacen);
+
+        if ($posicion) {
+
+            $this->repository->crearObjetoPosicion($posicion, $caja->id);
+            
+            return $posicion;
         }
+        return null;
     }
-
-    $posicion = $this->repository->crearObjetoPosicion($almacen, $caja, $estante, $division, $subdivision);
-
-    return $posicion;
-}
 
     public function existeCaja($cajaId)
     {
